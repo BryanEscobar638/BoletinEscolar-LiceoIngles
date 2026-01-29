@@ -18,7 +18,11 @@ MATERIAS_MAPEO = {
         "Listening": "{{R_Lis_T{t}}}",
         "Strength": "{{Reading_Strength}}",
         "Growth": "{{Reading_Growth}}",
-        "Goal": "{{Reading_Goal}}"
+        "Goal": "{{Reading_Goal}}",
+        "Work Habits": "{{Reading_Work}}",
+        "Participation": "{{Reading_Participation}}",
+        "Working in groups": "{{Reading_Group}}",
+        "Behavior and school values": "{{Reading_Behavior}}"
     },
     "Writing": {
         "Teacher": "{{Teacher_Writing}}",
@@ -38,7 +42,11 @@ MATERIAS_MAPEO = {
         "Geometry": "{{M_Geo_T1{t}}}",
         "Strength": "{{Math_Strength}}",
         "Growth": "{{Math_Growth}}",
-        "Goal": "{{Math_Goal}}"
+        "Goal": "{{Math_Goal}}",
+        "Work Habits": "{{Math_Work}}",
+        "Participation": "{{Math_Participation}}",
+        "Working in groups": "{{Math_Group}}",
+        "Behavior and school values": "{{Math_Behavior}}"
     },
     "Social Studies":{
         "Teacher": "{{Teacher_Social}}",
@@ -52,7 +60,11 @@ MATERIAS_MAPEO = {
         "Listening": "{{F_Lis_T1{t}}}",
         "Strength": "{{Foundational_Strength}}",
         "Growth": "{{Foundational_Growth}}",
-        "Goal": "{{Foundational_Goal}}"
+        "Goal": "{{Foundational_Goal}}",
+        "Work Habits": "{{Foundational_Work}}",
+        "Participation": "{{Foundational_Participation}}",
+        "Working in groups": "{{Foundational_Group}}",
+        "Behavior and school values": "{{Foundational_Behavior}}"
     },
     "Español": {
         "Teacher": "{{Teacher_Espanol}}",
@@ -61,7 +73,11 @@ MATERIAS_MAPEO = {
         "Expresión oral": "{{E_Exp_T{t}}}",
         "Strength": "{{Espanol_Strength}}",
         "Growth": "{{Espanol_Growth}}",
-        "Goal": "{{Espanol_Goal}}"
+        "Goal": "{{Espanol_Goal}}",
+        "Work Habits": "{{Espanol_Work}}",
+        "Participation": "{{Espanol_Participation}}",
+        "Working in groups": "{{Espanol_Group}}",
+        "Behavior and school values": "{{Espanol_Behavior}}"
     },
     "Arte": {
         "Teacher": "{{Teacher_Art}}",

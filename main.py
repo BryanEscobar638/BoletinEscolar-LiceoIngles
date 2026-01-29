@@ -41,7 +41,7 @@ def generar_boletin(id_estudiante, ruta_excel, trimestre_a_imprimir):
     contexto[limpiar_fijo(ESTUDIANTE["ID"])] = id_busqueda
     contexto[limpiar_fijo(TITULO["FINALREPORT"])] = f"FINAL REPORT TRIMESTER {trimestre_a_imprimir}"
 
-    tipos_comentario = ["Strength", "Growth", "Goal"]
+    tipos_comentario = ["Strength", "Growth", "Goal", "Work Habits", "Participation", "Working in groups", "Behavior and school values"]
 
     # --- 3. PROCESAMIENTO ---
     for materia_nombre, items in MATERIAS_MAPEO.items():
@@ -96,14 +96,49 @@ def generar_boletin(id_estudiante, ruta_excel, trimestre_a_imprimir):
     contexto_final = {k: v for k, v in contexto.items()}
     
     grado_val = contexto_final.get(limpiar_fijo(ESTUDIANTE["GRADO"]), "1")
-    plantilla = "Grades1&2template.docx" if str(grado_val)[0] in ["1", "2"] else "Grades3,4&5template.docx"
+    primer_caracter_grado = str(grado_val)[0]
+    if primer_caracter_grado in ["1", "2"]:
+        plantilla = "Grades1&2template.docx"
+    elif primer_caracter_grado in ["3", "4", "5"]:
+        plantilla = "Grades3,4&5template.docx"
+    else:
+        # Caso por defecto si el grado no coincide con los anteriores
+        plantilla = "Grades3,4&5template.docx" 
+        print(f"⚠️ Grado '{grado_val}' no reconocido, usando plantilla por defecto.")
     
-    doc = DocxTemplate(os.path.join("PLANTILLAS", plantilla))
-    doc.render(contexto_final, autoescape=True)
+    # doc = DocxTemplate(os.path.join("PLANTILLAS", plantilla))
+    # doc.render(contexto_final, autoescape=True)
     
-    nombre_base = f"Boletin_{id_busqueda}"
-    doc.save(f"{nombre_base}.docx")
-    print(f"✅ Generado correctamente: {nombre_base}.docx")
+    # nombre_base = f"Boletin_{id_busqueda}"
+    # doc.save(f"{nombre_base}.docx")
+    # print(f"✅ Generado correctamente: {nombre_base}.docx")
 
-# Ejecución
-generar_boletin("20622", "baseprueba.xlsx", 3)
+    # 4. Generación y Conversión Final
+    # Definimos el nombre base y las rutas completas usando la carpeta 'reportes'
+    output_dir = "reportes"
+    base_name = f"Boletin_{id_busqueda}"
+    path_word = os.path.join(output_dir, f"{base_name}.docx")
+    path_pdf = os.path.join(output_dir, f"{base_name}.pdf")
+
+    # Cargamos la plantilla desde la carpeta PLANTILLAS
+    doc = DocxTemplate(os.path.join("PLANTILLAS", plantilla))
+    
+    # Renderizamos los datos
+    doc.render(contexto, autoescape=True)
+    
+    # Guardamos el archivo Word temporalmente en la carpeta 'reportes'
+    doc.save(path_word)
+    
+    # Convertimos el Word recién guardado a PDF en la misma carpeta
+    print(f"⏳ Convirtiendo {base_name} a PDF...")
+    convert(path_word, path_pdf)
+    
+    # Borramos el Word para que no estorbe y solo quede el PDF
+    if os.path.exists(path_pdf):
+        os.remove(path_word)
+        print(f"✅ Proceso completo: {path_pdf}")
+
+# Ejecuciones
+# EJECUTAR UN CODIGO, Y TRIMESTRE ESPECIFICO.
+generar_boletin("20622", "baseprueba.xlsx", 1)
+# generar_boletin("20622", "Data Domains Elementary.xlsx", 1)
