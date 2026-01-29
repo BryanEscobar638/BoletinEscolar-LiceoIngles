@@ -138,7 +138,45 @@ def generar_boletin(id_estudiante, ruta_excel, trimestre_a_imprimir):
         os.remove(path_word)
         print(f"✅ Proceso completo: {path_pdf}")
 
-# Ejecuciones
+def procesar_grado_1(ruta_excel, trimestre):
+    # 1. Cargamos el Excel de notas
+    df_notas = pd.read_excel(ruta_excel, sheet_name='Tablero_notas_Oficial')
+    
+    # Limpiamos nombres de columnas y el ID
+    df_notas.columns = df_notas.columns.str.strip()
+    df_notas['CodigoEstudiante'] = df_notas['CodigoEstudiante'].astype(str).str.replace(r'\.0$', '', regex=True).str.strip()
+    
+    # 2. Filtramos solo los estudiantes de grado 1
+    # Usamos .str.startswith('1') por si el grado es '1A', '1B', etc.
+    estudiantes_grado_1 = df_notas[df_notas['HR'].astype(str).str.startswith('1')].copy()
+    
+    # Obtenemos la lista de IDs únicos (sin repetir)
+    lista_ids = estudiantes_grado_1['CodigoEstudiante'].unique().tolist()
+    
+    total_a_generar = len(lista_ids)
+    print(f"🚀 Iniciando generación para {total_a_generar} estudiantes de Grado 1...")
+
+    # 3. Bucle para generar cada boletín
+    for i, id_est in enumerate(lista_ids):
+        # Llamamos a tu función original
+        try:
+            generar_boletin(id_est, ruta_excel, trimestre)
+            
+            # Cálculo de cuántos faltan
+            faltantes = total_a_generar - (i + 1)
+            if faltantes > 0:
+                print(f"⏳ Faltan {faltantes} documentos por generar...")
+            else:
+                print("✅ ¡Todos los documentos han sido generados!")
+                
+        except Exception as e:
+            print(f"❌ Error con el estudiante {id_est}: {e}")
+
+# --- EJECUCIÓN ---
+procesar_grado_1("baseprueba.xlsx", 1)
+
+# === Ejecuciones ===
 # EJECUTAR UN CODIGO, Y TRIMESTRE ESPECIFICO.
-generar_boletin("20622", "baseprueba.xlsx", 1)
+
+# generar_boletin("24771", "baseprueba.xlsx", 1)
 # generar_boletin("20622", "Data Domains Elementary.xlsx", 1)
