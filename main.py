@@ -2,6 +2,7 @@ import pandas as pd
 from docxtpl import DocxTemplate
 import os
 from docx2pdf import convert
+import comtypes.client
 from mapeos import TITULO, ESTUDIANTE, MATERIAS_MAPEO
 
 def generar_boletin(id_estudiante, ruta_excel, trimestre_a_imprimir):
@@ -130,53 +131,71 @@ def generar_boletin(id_estudiante, ruta_excel, trimestre_a_imprimir):
     doc.save(path_word)
     
     # Convertimos el Word recién guardado a PDF en la misma carpeta
-    print(f"⏳ Convirtiendo {base_name} a PDF...")
-    convert(path_word, path_pdf)
+    # print(f"⏳ Convirtiendo {base_name} a PDF...")
+    # convert(path_word, path_pdf)
     
-    # Borramos el Word para que no estorbe y solo quede el PDF
-    if os.path.exists(path_pdf):
-        os.remove(path_word)
-        print(f"✅ Proceso completo: {path_pdf}")
+    # # Borramos el Word para que no estorbe y solo quede el PDF
+    # if os.path.exists(path_pdf):
+    #     os.remove(path_word)
+    #     print(f"✅ Proceso completo: {path_pdf}")
 
 def procesar_grado_1(ruta_excel, trimestre):
-    # 1. Cargamos el Excel de notas
+    # 1. Carga y limpieza
     df_notas = pd.read_excel(ruta_excel, sheet_name='Tablero_notas_Oficial')
-    
-    # Limpiamos nombres de columnas y el ID
     df_notas.columns = df_notas.columns.str.strip()
     df_notas['CodigoEstudiante'] = df_notas['CodigoEstudiante'].astype(str).str.replace(r'\.0$', '', regex=True).str.strip()
     
-    # 2. Filtramos solo los estudiantes de grado 1
-    # Usamos .str.startswith('1') por si el grado es '1A', '1B', etc.
+    # 2. Filtrado de IDs únicos de grado 1
     estudiantes_grado_1 = df_notas[df_notas['HR'].astype(str).str.startswith('1')].copy()
-    
-    # Obtenemos la lista de IDs únicos (sin repetir)
     lista_ids = estudiantes_grado_1['CodigoEstudiante'].unique().tolist()
     
     total_a_generar = len(lista_ids)
-    print(f"🚀 Iniciando generación para {total_a_generar} estudiantes de Grado 1...")
+    print(f"🚀 Iniciando generación de {total_a_generar} archivos Word...")
 
-    # 3. Bucle para generar cada boletín
+    # 3. BUCLE DE WORDS (Generación ultra rápida)
     for i, id_est in enumerate(lista_ids):
-        # Llamamos a tu función original
         try:
             generar_boletin(id_est, ruta_excel, trimestre)
             
-            # Cálculo de cuántos faltan
             faltantes = total_a_generar - (i + 1)
-            if faltantes > 0:
-                print(f"⏳ Faltan {faltantes} documentos por generar...")
-            else:
-                print("✅ ¡Todos los documentos han sido generados!")
+            if faltantes % 5 == 0 and faltantes > 0:
+                print(f"📝 Words restantes: {faltantes}...")
                 
         except Exception as e:
             print(f"❌ Error con el estudiante {id_est}: {e}")
 
-# --- EJECUCIÓN ---
-procesar_grado_1("baseprueba.xlsx", 1)
+    # 4. CONVERSIÓN MASIVA (Batch)
+    print(f"\n{'='*40}")
+    print("🔄 Iniciando conversión masiva a PDF...")
+    print("⚠️ Por favor, no cierres Word si se abre una ventana.")
+    print(f"{'='*40}")
+    
+    try:
+        # Esto procesa toda la carpeta de un solo golpe
+        convert("reportes/") 
+        print("\n✨ Conversión a PDF finalizada.")
+
+        # --- AQUÍ VA LA LIMPIEZA DE TEMPORALES ---
+        print("🧹 Borrando archivos Word temporales...")
+        for archivo in os.listdir("reportes"):
+            if archivo.endswith(".docx"):
+                os.remove(os.path.join("reportes", archivo))
+        
+        print("✅ ¡PROCESO TOTALMENTE TERMINADO! Revisa la carpeta 'reportes'.")
+
+    except Exception as e:
+        print(f"❌ Error en la conversión masiva: {e}")
+
+def inicializar_word():
+    word = comtypes.client.CreateObject('Word.Application')
+    word.Visible = False
+    return word
 
 # === Ejecuciones ===
 # EJECUTAR UN CODIGO, Y TRIMESTRE ESPECIFICO.
 
 # generar_boletin("24771", "baseprueba.xlsx", 1)
 # generar_boletin("20622", "Data Domains Elementary.xlsx", 1)
+
+# SOLO GRADO PRIMERO
+procesar_grado_1("baseprueba.xlsx", 1)

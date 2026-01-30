@@ -1,1 +1,1 @@
-pip install python-docx pandas openpyxl docx2pdf
+pip install python-docx pandas openpyxl docx2pdf comtypes
