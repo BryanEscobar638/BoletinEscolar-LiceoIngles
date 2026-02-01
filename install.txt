@@ -1,1 +1,4 @@
-pip install python-docx pandas openpyxl docx2pdf comtypes
+pip install python-docx pandas openpyxl docx2pdf comtypes docxtpl pdfkit xhtml2pdf
+
+pip install playwright
+playwright install chromium

@@ -50,7 +50,7 @@ MATERIAS_MAPEO = {
     },
     "Social Studies":{
         "Teacher": "{{Teacher_Social}}",
-        "Content": "{{S_Con_T{t}}}",
+        "Content": "{{So_Con_T{t}}}",
         "Skills": "{{S_Ski_T{t}}}"
     },
     "Foundational Skills": {
@@ -100,7 +100,7 @@ MATERIAS_MAPEO = {
         "Understanding Values": "{{R_Und_T{t}}}"
     },
     "Sociales": {
-        "Teacher": "{{Teacher_Religion}}",
+        "Teacher": "{{Teacher_Sociales}}",
         "Relaciones espaciales": "{{S_Esp_T{t}}}",
         "Relaciones ético políticas": "{{S_Eti_T{t}}}",
         "Relaciones con la historia y la cultura": "{{S_His_T{t}}}"
