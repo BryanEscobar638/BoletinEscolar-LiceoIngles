@@ -78,7 +78,12 @@ async def generar_boletin(id_estudiante, ruta_excel, trimestre_a_imprimir):
         env = Environment(loader=FileSystemLoader("plantillas_html"))
         grado_val = contexto.get(limpiar_fijo(ESTUDIANTE["GRADO"]), "1")
         primer_caracter = str(grado_val)[0]
-        nombre_plantilla = "Grades1&2template.html" if primer_caracter in ["1", "2"] else "Grades3,4&5template.html"
+        nombre_plantilla = ""
+        if primer_caracter in ["1", "2"]:
+            nombre_plantilla = "Grades1&2template.html"
+        elif primer_caracter in ["3", "4", "5"]:
+            # Este actúa como el caso por defecto para 3, 4 y 5
+            nombre_plantilla = "Grades3,4&5template.html"
         template = env.get_template(nombre_plantilla)
         html_renderizado = template.render(contexto)
     except Exception as e:
@@ -173,5 +178,5 @@ async def procesar_grado_1(ruta_excel, trimestre):
 
 # === Ejecución (Cambia un poco por ser asíncrono) ===
 if __name__ == "__main__":
-    asyncio.run(generar_boletin("20622", "baseprueba.xlsx", 1))
-    # asyncio.run(procesar_grado_1("baseprueba.xlsx", 1))
+    # asyncio.run(generar_boletin("20622", "baseprueba.xlsx", 1))
+    asyncio.run(procesar_grado_1("baseprueba.xlsx", 1))
