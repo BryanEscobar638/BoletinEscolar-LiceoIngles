@@ -123,121 +123,111 @@ async def generar_boletin(id_estudiante, ruta_excel, trimestre_a_imprimir):
     except Exception as e:
         print(f"❌ Error crítico en Playwright: {e}")
 
-# async def generar_boletinHS(id_estudiante, ruta_excel, trimestre_a_imprimir):
-#     # --- 1. CARGA DE DATOS (Hojas de High School) ---
-#     # Notas: Destination_oficial | Comentarios: Ls_Comments_Oficial_HS
-#     df_notas = pd.read_excel(ruta_excel, sheet_name='Destination_oficial')
-#     df_comentarios = pd.read_excel(ruta_excel, sheet_name='Ls_Comments_Oficial_HS')
+async def generar_boletinHS(id_estudiante, ruta_excel, trimestre_a_imprimir):
+    # --- 1. CARGA DE DATOS ---
+    df_notas = pd.read_excel(ruta_excel, sheet_name='Destination_oficial')
+    df_comentarios = pd.read_excel(ruta_excel, sheet_name='Ls_Comments_Oficial_HS')
     
-#     for df in [df_notas, df_comentarios]:
-#         df.columns = df.columns.str.strip()
-#         df['CodigoEstudiante'] = df['CodigoEstudiante'].astype(str).str.replace(r'\.0$', '', regex=True).str.strip()
+    for df in [df_notas, df_comentarios]:
+        df.columns = df.columns.str.strip()
+        df['CodigoEstudiante'] = df['CodigoEstudiante'].astype(str).str.strip().str.replace(r'\.0$', '', regex=True)
 
-#     id_busqueda = str(id_estudiante).strip()
-#     info_est_coments = df_comentarios[df_comentarios['CodigoEstudiante'] == id_busqueda]
-#     info_est_notas = df_notas[df_notas['CodigoEstudiante'] == id_busqueda]
+    id_busqueda = str(id_estudiante).strip()
+    info_est_notas = df_notas[df_notas['CodigoEstudiante'] == id_busqueda]
+    info_est_coments = df_comentarios[df_comentarios['CodigoEstudiante'] == id_busqueda]
 
-#     if info_est_notas.empty:
-#         print(f"❌ No se encontraron datos para el ID: {id_busqueda}")
-#         return
+    if info_est_notas.empty:
+        print(f"❌ No hay notas para el ID: {id_busqueda}")
+        return
 
-#     def limpiar_fijo(tag):
-#         return tag.replace("{{", "").replace("}}", "").replace(" ", "").strip()
+    contexto = {}
+    def limpiar(tag): return tag.replace("{{", "").replace("}}", "").replace(" ", "").strip()
 
-#     contexto = {}
-    
-#     # --- 2. LLENADO DE DATOS PERSONALES ---
-#     primer_reg = info_est_notas.iloc[0]
-#     contexto[limpiar_fijo(ESTUDIANTE["NOMBRE"])] = str(primer_reg.get('StudentName', '')).strip()
-#     contexto[limpiar_fijo(ESTUDIANTE["GRADO"])] = str(primer_reg.get('HR', '')).strip()
-#     contexto[limpiar_fijo(ESTUDIANTE["PROFE"])] = str(primer_reg.get('HR_Teacher', '')).strip()
-#     contexto[limpiar_fijo(ESTUDIANTE["ID"])] = id_busqueda
-#     contexto[limpiar_fijo(TITULO["FINALREPORT"])] = f"FINAL REPORT TRIMESTER {trimestre_a_imprimir}"
+    # --- 2. ENCABEZADO (Búsqueda de HR real) ---
+    reg_base = info_est_notas.iloc[0]
+    # Inicializamos hr_detectado con un valor por defecto para evitar el error de "not defined"
+    hr_detectado = str(reg_base.get('HR', '9')).strip() 
+    teacher_hr = str(reg_base.get('HR_Teacher', '')).strip()
 
-#     # Definimos las columnas que son comentarios o indicadores de comportamiento
-#     tipos_especiales = [
-#         "comments", "Work Habits", "Participation", 
-#         "Working in groups", "Behavior and school values"
-#     ]
+    # Buscamos en todas las filas de la materia el HR que tenga 2 caracteres (ej: 9A)
+    for _, fila in info_est_notas.iterrows():
+        valor_hr = str(fila.get('HR', '')).strip()
+        if len(valor_hr) == 2:
+            hr_detectado = valor_hr
+            teacher_hr = str(fila.get('HR_Teacher', '')).strip()
+            break
 
-#     # --- 3. PROCESAMIENTO DE MATERIAS (Mapeo HS) ---
-#     for materia_nombre, items in MATERIAS_MAPEO_HS.items():
-#         # Filtramos por materia en las dos hojas
-#         datos_m_notas = info_est_notas[info_est_notas['Subject'].str.strip() == materia_nombre]
-#         datos_m_coments = info_est_coments[info_est_coments['Subject'].str.strip() == materia_nombre]
+    contexto[limpiar(ESTUDIANTE["NOMBRE"])] = str(reg_base.get('StudentName', ''))
+    contexto[limpiar(ESTUDIANTE["GRADO"])] = hr_detectado
+    contexto[limpiar(ESTUDIANTE["PROFE"])] = teacher_hr
+    contexto[limpiar(ESTUDIANTE["ID"])] = id_busqueda
 
-#         for nombre_item, etiqueta_base in items.items():
-#             tag_limpio = limpiar_fijo(etiqueta_base.replace("{t}", ""))
-            
-#             # Caso A: Nombre del Profesor
-#             if nombre_item == "Teacher":
-#                 contexto[tag_limpio] = str(datos_m_notas.iloc[0].get('S_Teacher', '')) if not datos_m_notas.empty else ""
-            
-#             # Caso B: Comentarios y Hábitos de Trabajo (Vienen de Ls_Comments_Oficial_HS)
-#             elif nombre_item in tipos_especiales:
-#                 if not datos_m_coments.empty:
-#                     # Buscamos la columna dinámica (ej: Work Habits_T1)
-#                     col_excel = f"{nombre_item}_T{trimestre_a_imprimir}"
-#                     val = datos_m_coments.iloc[0].get(col_excel, '')
-#                     contexto[tag_limpio] = " ".join(str(val).split()) if pd.notna(val) and val != "" else ""
-#                 else:
-#                     contexto[tag_limpio] = ""
-            
-#             # Caso C: Notas Numéricas (Vienen de Destination_oficial)
-#             elif nombre_item == "nota":
-#                 for t in range(1, 4):
-#                     # Generamos el tag para cada trimestre: Art_T1, Art_T2, etc.
-#                     tag_trimestre = limpiar_fijo(etiqueta_base.format(t=t))
-#                     if t <= trimestre_a_imprimir:
-#                         if not datos_m_notas.empty:
-#                             col_trim = f'Trimester{t}'
-#                             valor = datos_m_notas.iloc[0].get(col_trim, '')
-#                             contexto[tag_trimestre] = str(valor).strip() if pd.notna(valor) else ""
-#                         else:
-#                             contexto[tag_trimestre] = ""
-#                     else:
-#                         contexto[tag_trimestre] = ""
+    # --- 3. EXTRACCIÓN DE NOTAS POR MATERIA ---
+    campos_comentarios = ["Work Habits", "Participation", "Working in groups", "Behavior and school values", "comments"]
 
-#     # --- 4. RENDERIZADO Y GENERACIÓN DE PDF ---
-#     try:
-#         env = Environment(loader=FileSystemLoader("plantillas_html"))
-#         grado_val = contexto.get(limpiar_fijo(ESTUDIANTE["GRADO"]), "9") # Default HS
-#         primer_caracter = str(grado_val)[0]
+    for materia_mapeo, items in MATERIAS_MAPEO_HS.items():
+        busqueda = [m.lower() for m in (materia_mapeo if isinstance(materia_mapeo, (list, tuple)) else [materia_mapeo])]
         
-#         # Selector de plantillas mejorado
-#         if "9" in str(grado_val):
-#             nombre_plantilla = "Grades9template.html" # Ejemplo
-#         elif primer_caracter in ["8", "10"]:
-#             nombre_plantilla = "Grades8&9template.html"
-#         else:
-#             nombre_plantilla = "HSTemplate_General.html"
+        fila_materia = info_est_notas[info_est_notas['Subject'].str.strip().str.lower().isin(busqueda)]
+        fila_coment = info_est_coments[info_est_coments['Subject'].str.strip().str.lower().isin(busqueda)]
 
-#         template = env.get_template(nombre_plantilla)
-#         html_renderizado = template.render(contexto)
-#     except Exception as e:
-#         print(f"❌ Error en plantilla: {e}")
-#         return
+        if fila_materia.empty:
+            continue
 
-#     # Guardado con Playwright (Se mantiene igual)
-#     output_dir = "reportes"
-#     if not os.path.exists(output_dir): os.makedirs(output_dir)
-#     path_pdf = os.path.join(output_dir, f"Boletin_HS_{id_busqueda}.pdf")
+        datos_m = fila_materia.iloc[0]
 
-#     try:
-#         async with async_playwright() as p:
-#             browser = await p.chromium.launch()
-#             page = await browser.new_page()
-#             await page.set_content(html_renderizado)
-#             await page.pdf(
-#                 path=path_pdf,
-#                 format="Letter",
-#                 print_background=True,
-#                 margin={"top": "1cm", "bottom": "1cm", "left": "1cm", "right": "1cm"}
-#             )
-#             await browser.close()
-#         print(f"✅ PDF HS generado: {path_pdf}")
-#     except Exception as e:
-#         print(f"❌ Error Playwright: {e}")
+        for nombre_item, etiqueta_base in items.items():
+            tag = limpiar(etiqueta_base.replace("{t}", ""))
+            
+            if nombre_item == "nota":
+                for t in range(1, 4):
+                    tag_t = limpiar(etiqueta_base.format(t=t))
+                    if t <= trimestre_a_imprimir:
+                        col_nota = f"Trimester{t}"
+                        valor_nota = datos_m.get(col_nota, "")
+                        contexto[tag_t] = str(valor_nota) if pd.notna(valor_nota) and str(valor_nota) != "**" else ""
+                    else:
+                        contexto[tag_t] = ""
+
+            elif nombre_item == "Teacher":
+                contexto[tag] = str(datos_m.get('S_Teacher', ''))
+
+            elif nombre_item in campos_comentarios:
+                if not fila_coment.empty:
+                    col_c = f"{nombre_item}_T{trimestre_a_imprimir}"
+                    val_c = fila_coment.iloc[0].get(col_c, "")
+                    contexto[tag] = str(val_c) if pd.notna(val_c) and str(val_c) != "**" else ""
+                else:
+                    contexto[tag] = ""
+
+    # --- 4. RENDER Y PDF ---
+    try:
+        env = Environment(loader=FileSystemLoader("plantillas_html"))
+        
+        # CORRECCIÓN AQUÍ: Usamos hr_detectado que definimos arriba
+        if "9" in hr_detectado:
+            nombre_plantilla = "Grades9template.html"
+        else:
+            nombre_plantilla = "Grades10to12template.html"
+
+        template = env.get_template(nombre_plantilla)
+        html_renderizado = template.render(contexto)
+        
+        output_dir = "reportes"
+        if not os.path.exists(output_dir): os.makedirs(output_dir)
+        path_pdf = os.path.join(output_dir, f"Boletin_HS_{id_busqueda}.pdf")
+
+        async with async_playwright() as p:
+            browser = await p.chromium.launch(headless=True)
+            page = await browser.new_page()
+            await page.set_content(html_renderizado)
+            await page.pdf(path=path_pdf, format="Letter", print_background=True)
+            await browser.close()
+        
+        print(f"✅ ¡Boletín HS generado con éxito! -> {path_pdf}")
+
+    except Exception as e:
+        print(f"❌ Error en Render/PDF: {e}")
 
 async def procesar_grado_1(ruta_excel, trimestre):
     # --- Inicio del cronómetro global ---
@@ -298,6 +288,8 @@ async def procesar_grado_1(ruta_excel, trimestre):
 
 # === Ejecución (Cambia un poco por ser asíncrono) ===
 if __name__ == "__main__":
-    asyncio.run(generar_boletin("20771", "baseprueba.xlsx", 1))
-    # asyncio.run(generar_boletinHS("22412", "basepruebaHS.xlsx", 1))
+    # asyncio.run(generar_boletin("20771", "baseprueba.xlsx", 1))
+    asyncio.run(generar_boletinHS("22412", "basepruebaHS.xlsx", 1))
     # asyncio.run(procesar_grado_1("baseprueba.xlsx", 1))
+
+# NO PONE LAS NOTAS DE 9 EN ADELANTE

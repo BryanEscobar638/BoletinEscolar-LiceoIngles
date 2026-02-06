@@ -190,7 +190,7 @@ MATERIAS_MAPEO = {
 }
 
 MATERIAS_MAPEO_HS = {
-    "Artso": {
+    "ArtsSo": {
         "Teacher": "{{Teacher_Art}}",
         "nota": "{{Art_T{t}}}",
         "Work Habits": "{{Art_Work}}",
@@ -198,7 +198,7 @@ MATERIAS_MAPEO_HS = {
         "Working in groups": "{{Art_Group}}",
         "Behavior and school values": "{{Art_Behavior}}"
     },
-    "Physical Education": {
+    "P.E": {
         "Teacher": "{{Teacher_PE}}",
         "nota": "{{PE_T{t}}}",
         "comments": "{{PE_Comments}}",
@@ -270,7 +270,7 @@ MATERIAS_MAPEO_HS = {
         "Behavior and school values": "{{EYV_Behavior}}"
     },
     "Algebra I / Geome-Stats": {
-        "Teacher": "{{Teacher_EYV}}",
+        "Teacher": "{{Teacher_ALG}}",
         "nota": "{{EYV_T{t}}}",
         "Work Habits": "{{ALG_Work}}",
         "Participation": "{{ALG_Participation}}",
