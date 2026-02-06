@@ -55,6 +55,7 @@ MATERIAS_MAPEO = {
         "The number system": "{{M_Numsys_T{t}}}",
         "Expressions and equations": "{{M_Exp_T{t}}}",
         "Geometry and Statistics": "{{M_GeoSta_T{t}}}",
+        "Functions": "{{M_Fun_T{t}}}",
         "Strength": "{{Math_Strength}}",
         "Growth": "{{Math_Growth}}",
         "Goal": "{{Math_Goal}}",
@@ -63,7 +64,7 @@ MATERIAS_MAPEO = {
         "Working in groups": "{{Math_Group}}",
         "Behavior and school values": "{{Math_Behavior}}"
     },
-    "Social Studies":{
+    ("Social Studies", "Social studies"):{
         "Teacher": "{{Teacher_Social}}",
         "Content": "{{So_Con_T{t}}}",
         "Skills": "{{S_Ski_T{t}}}",
@@ -106,7 +107,7 @@ MATERIAS_MAPEO = {
         "Working in groups": "{{Espanol_Group}}",
         "Behavior and school values": "{{Espanol_Behavior}}"
     },
-    "Arte": {
+    ("Arte", "Art"): {
         "Teacher": "{{Teacher_Art}}",
         "Artistic concepts": "{{A_Art_T{t}}}",
         "Creative expression": "{{A_Cre_T{t}}}",
@@ -128,7 +129,7 @@ MATERIAS_MAPEO = {
         "Working in groups": "{{Music_Group}}",
         "Behavior and school values": "{{Music_Behavior}}"
     },
-    "P.E": {
+    ("P.E", "Physical Education"): {
         "Teacher": "{{Teacher_Physical}}",
         "Healthful Living": "{{P_Hea_T{t}}}",
         "Gross Motor Skills": "{{P_Gro_T{t}}}",
@@ -140,7 +141,7 @@ MATERIAS_MAPEO = {
         "Working in groups": "{{Physical_Group}}",
         "Behavior and school values": "{{Physical_Behavior}}"
     },
-    "REV": {
+    ("REV", "Religión, ética y valores"): {
         "Teacher": "{{Teacher_Religion}}",
         "Understanding Values": "{{R_Und_T{t}}}",
         "Identidad y formación personal": "{{R_Ide_T{t}}}",
@@ -182,8 +183,98 @@ MATERIAS_MAPEO = {
         "Working in groups": "{{English_Group}}",
         "Behavior and school values": "{{English_Behavior}}"
     },
-    "Electiva": {
+    "Electiva_Ms": {
         "Teacher": "{{Teacher_Electiva}}",
         "Electiva": "{{Electiva_T{t}}}",
     }
+}
+
+MATERIAS_MAPEO_HS = {
+    "Artso": {
+        "Teacher": "{{Teacher_Art}}",
+        "nota": "{{Art_T{t}}}",
+        "Work Habits": "{{Art_Work}}",
+        "Participation": "{{Art_Participation}}",
+        "Working in groups": "{{Art_Group}}",
+        "Behavior and school values": "{{Art_Behavior}}"
+    },
+    "Physical Education": {
+        "Teacher": "{{Teacher_PE}}",
+        "nota": "{{PE_T{t}}}",
+        "comments": "{{PE_Comments}}",
+        "Work Habits": "{{PE_Work}}",
+        "Participation": "{{PE_Participation}}",
+        "Working in groups": "{{PE_Group}}",
+        "Behavior and school values": "{{PE_Behavior}}"
+    },
+    "Technology": {
+        "Teacher": "{{Teacher_Tech}}",
+        "nota": "{{Tech_T{t}}}",
+        "Work Habits": "{{Tech_Work}}",
+        "Participation": "{{Tech_Participation}}",
+        "Working in groups": "{{Tech_Group}}",
+        "Behavior and school values": "{{Tech_Behavior}}"
+    },
+    "Biology": {
+        "Teacher": "{{Teacher_Biology}}",
+        "nota": "{{Biology_T{t}}}",
+        "comments": "{{Biology_Comments}}",
+        "Work Habits": "{{Biology_Work}}",
+        "Participation": "{{Biology_Participation}}",
+        "Working in groups": "{{Biology_Group}}",
+        "Behavior and school values": "{{Biology_Behavior}}"
+    },
+    "SS - History of EEUU": {
+        "Teacher": "{{Teacher_History}}",
+        "nota": "{{History_T{t}}}",
+        "comments": "{{History_Comments}}",
+        "Work Habits": "{{History_Work}}",
+        "Participation": "{{History_Participation}}",
+        "Working in groups": "{{History_Group}}",
+        "Behavior and school values": "{{History_Behavior}}"
+    },
+    "English": {
+        "Teacher": "{{Teacher_English}}",
+        "nota": "{{English_T{t}}}",
+        "comments": "{{English_Comments}}",
+        "Work Habits": "{{English_Work}}",
+        "Participation": "{{English_Participation}}",
+        "Working in groups": "{{English_Group}}",
+        "Behavior and school values": "{{English_Behavior}}"
+    },
+    "Español": {
+        "Teacher": "{{Teacher_Espanol}}",
+        "nota": "{{Espanol_T{t}}}",
+        "comments": "{{Espanol_Comments}}",
+        "Work Habits": "{{Espanol_Work}}",
+        "Participation": "{{Espanol_Participation}}",
+        "Working in groups": "{{Espanol_Group}}",
+        "Behavior and school values": "{{Espanol_Behavior}}"
+    },
+    "Philosophy": {
+        "Teacher": "{{Teacher_Philosophy}}",
+        "nota": "{{Philosophy_T{t}}}",
+        "comments": "{{Philosophy_Comments}}",
+        "Work Habits": "{{Philosophy_Work}}",
+        "Participation": "{{Philosophy_Participation}}",
+        "Working in groups": "{{Philosophy_Group}}",
+        "Behavior and school values": "{{Philosophy_Behavior}}"
+    },
+    "Ética y Valores": {
+        "Teacher": "{{Teacher_EYV}}",
+        "nota": "{{EYV_T{t}}}",
+        "comments": "{{EYV_Comments}}",
+        "Work Habits": "{{EYV_Work}}",
+        "Participation": "{{EYV_Participation}}",
+        "Working in groups": "{{EYV_Group}}",
+        "Behavior and school values": "{{EYV_Behavior}}"
+    },
+    "Algebra I / Geome-Stats": {
+        "Teacher": "{{Teacher_EYV}}",
+        "nota": "{{EYV_T{t}}}",
+        "Work Habits": "{{ALG_Work}}",
+        "Participation": "{{ALG_Participation}}",
+        "Working in groups": "{{ALG_Group}}",
+        "Behavior and school values": "{{ALG_Behavior}}"
+    },
 }

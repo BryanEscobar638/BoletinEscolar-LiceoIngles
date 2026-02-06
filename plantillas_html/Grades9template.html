@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: letter;
+            /* Definimos márgenes normales. Sin @frame el contenido fluye solo */
+            margin-top: 1.5cm;
+            margin-bottom: 2.5cm;
+            margin-left: 1.5cm;
+            margin-right: 1.5cm;
+
+            /* El footer se define así para que se repita en cada página */
+            @bottom-center {
+                content: "Fundación Liceo Inglés 2025-2026";
+                font-family: 'Arial', sans-serif;
+                font-size: 9pt;
+                color: #000;
+            }
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            font-size: 10pt;
+            line-height: 1.2;
+            color: #000;
+        }
+
+        .header-top {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        /* Arreglo de imágenes con puntos fijos */
+        .logo-img {
+            width: 80pt;
+        }
+
+        .full-width-photo {
+            width: 480pt;
+            height: auto;
+        }
+
+        .report-title {
+            font-size: 16pt;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .school-text {
+            color: #A62617;
+            font-size: 14pt;
+            margin: 0;
+        }
+
+        .year-text {
+            color: #A62617;
+            font-size: 12pt;
+            margin: 0 0 15px 0;
+        }
+
+        /* TABLAS: Configuradas para romperse entre páginas */
+        .main-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1.5px solid #000;
+            /* IMPORTANTE: Permite que la tabla se divida */
+            -pdf-keep-with-next: false;
+        }
+
+        .main-table th,
+        .main-table td {
+            border: 1px dotted #000;
+            padding: 6px;
+        }
+
+        /* Evita que una celda de texto se parta feo, pero permite que la tabla salte */
+        tr {
+            page-break-inside: avoid;
+        }
+
+        .red-top-border {
+            border-top: 4px solid #A62617 !important;
+            background-color: #F2F2F2;
+        }
+
+        .col-header {
+            text-align: center;
+            font-weight: bold;
+            background-color: #F2F2F2;
+        }
+
+        .grade-cell {
+            background-color: #D9E5FF;
+            text-align: center;
+            width: 45pt;
+        }
+
+        .reading-side-label {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 12pt;
+            width: 80pt;
+        }
+
+        .comments-row {
+            background-color: #F2F2F2;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        ul.domain-list {
+            list-style-type: disc;
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .signatures-photo-container {
+            width: 100%;
+            margin-top: 30px;
+            text-align: center;
+            /* Si las firmas no caben al final de la hoja, saltan completas a la siguiente */
+            page-break-inside: avoid;
+        }
+
+        /* Para añadir esta tabla de Life Skills a tu boletín usando la "bala de plata"(Playwright),
+        aquí tienes el código necesario. He respetado los nombres de las variables que se ven en tu imagen para que Jinja2 las reconozca automáticamente. 1. Añade esto a tu CSS Este estilo asegura que los bordes rojos punteados y los encabezados grises se vean exactamente como en tu imagen. CSS */
+
+        /* Estilos para la tabla Life Skills */
+        .life-skills-title {
+            color: #FF0000;
+            font-size: 18pt;
+            text-align: center;
+            margin: 20pt 0 10pt 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .life-skills-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid #A62617;
+            /* Borde exterior grueso y rojo */
+        }
+
+        .life-skills-table th {
+            background-color: #EEEEEE;
+            color: #000;
+            font-weight: bold;
+            padding: 10px;
+            border: 1px dotted #FF0000;
+            /* Bordes punteados rojos */
+            text-align: center;
+        }
+
+        .life-skills-table td {
+            border: 1px dotted #FF0000;
+            padding: 8px;
+            text-align: center;
+            font-size: 10pt;
+        }
+
+        .subject-col {
+            font-style: italic;
+            font-weight: bold;
+            text-align: center;
+            width: 20%;
+        }
+
+        .table-report {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .table-report td,
+        .table-report th {
+            border: 1px dotted #FF0000;
+            /* Borde punteado rojo */
+            padding: 8px;
+            text-align: center;
+        }
+
+        .border-top-heavy {
+            border-top: 4px solid #A62617 !important;
+        }
+
+        .bg-blue {
+            background-color: #D9E5FF;
+        }
+
+        .col-subject {
+            font-weight: bold;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header-top">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1uiVMuC-Eps4u7JgCFbUiXNylWn-KPSI2" class="logo-img">
+        <div class="report-title">{{Final_report}}</div>
+    </div>
+
+    <table style="width: 100%; border: none; margin-bottom: 10pt;">
+        <tr>
+            <td style="width: 300pt; vertical-align: top;">
+                <h2 class="school-text">Fundación Liceo Inglés</h2>
+                <h3 class="year-text">School Year 2025-2026</h3>
+                <div style="font-size: 10pt;">
+                    <p><strong>Student Name:</strong> {{Student_name}}</p>
+                    <p><strong>Homeroom:</strong> {{Student_HR}}</p>
+                    <p><strong>Homeroom Teacher:</strong> {{Student_HRteacher}}</p>
+                    <p><strong>Código:</strong> {{Student_code}}</p>
+                </div>
+            </td>
+            <td style="width: 150pt; vertical-align: top; padding-left: 20px;">
+                <div style="font-size: 9pt; border: 1pt solid #ccc; padding: 5pt;">
+                    <strong>Progress key</strong><br>
+                    93% a 100% = Advanced Level<br>
+                    80% a 92% = Proficient<br>
+                    65% a 79% = Basic<br>
+                    50% a 64% = Low<br>
+                    Less than 50% = Low<br>
+                    “**” = Not assessed
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div style="color: #FF0000; font-size: 16pt; text-align: center; margin: 15pt 0 5pt 0;">Arts</div>
+    <table class="table-report border-top-heavy">
+        <thead>
+            <tr>
+                <th style="width: 20%;">Subject</th>
+                <th style="width: 35%;">Teacher</th>
+                <th style="width: 15%;">Trimester 1</th>
+                <th style="width: 15%;">Trimester 2</th>
+                <th style="width: 15%;">Trimester 3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="col-subject">ArtSo</td>
+                <td>{{Teacher_Art}}</td>
+                <td class="bg-blue">{{Art_T1}}</td>
+                <td class="bg-blue">{{Art_T2}}</td>
+                <td class="bg-blue">{{Art_T3}}</td>
+            </tr>
+            <tr>
+                <td class="col-subject">Physical Education</td>
+                <td>{{Teacher_PE}}</td>
+                <td class="bg-blue">{{PE_T1}}</td>
+                <td class="bg-blue">{{PE_T2}}</td>
+                <td class="bg-blue">{{PE_T3}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold; background-color: #f9f9f9;">Comments</td>
+                <td colspan="4" style="text-align: left; padding: 15px;">
+                    {{PE_Comments}}
+                </td>
+            </tr>
+            <tr>
+                <td class="col-subject">Technology</td>
+                <td>{{Teacher_Tech}}</td>
+                <td class="bg-blue">{{Tech_T1}}</td>
+                <td class="bg-blue">{{Tech_T2}}</td>
+                <td class="bg-blue">{{Tech_T3}}</td>
+            </tr>
+            <tr>
+                <td class="col-subject">Biology</td>
+                <td>{{Teacher_Biology}}</td>
+                <td class="bg-blue">{{Biology_T1}}</td>
+                <td class="bg-blue">{{Biology_T2}}</td>
+                <td class="bg-blue">{{Biology_T3}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold; background-color: #f9f9f9;">Comments</td>
+                <td colspan="4" style="text-align: left; padding: 15px;">
+                    {{Biology_Comments}}
+                </td>
+            </tr>
+            <tr>
+                <td class="col-subject">SS - History of EEUU</td>
+                <td>{{Teacher_History}}</td>
+                <td class="bg-blue">{{History_T1}}</td>
+                <td class="bg-blue">{{History_T2}}</td>
+                <td class="bg-blue">{{History_T3}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold; background-color: #f9f9f9;">Comments</td>
+                <td colspan="4" style="text-align: left; padding: 15px;">
+                    {{History_Comments}}
+                </td>
+            </tr>
+            <tr>
+                <td class="col-subject">English</td>
+                <td>{{Teacher_English}}</td>
+                <td class="bg-blue">{{English_T1}}</td>
+                <td class="bg-blue">{{English_T2}}</td>
+                <td class="bg-blue">{{English_T3}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold; background-color: #f9f9f9;">Comments</td>
+                <td colspan="4" style="text-align: left; padding: 15px;">
+                    {{English_Comments}}
+                </td>
+            </tr>
+            <tr>
+                <td class="col-subject">Español</td>
+                <td>{{Teacher_Espanol}}</td>
+                <td class="bg-blue">{{Espanol_T1}}</td>
+                <td class="bg-blue">{{Espanol_T2}}</td>
+                <td class="bg-blue">{{Espanol_T3}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold; background-color: #f9f9f9;">Comments</td>
+                <td colspan="4" style="text-align: left; padding: 15px;">
+                    {{Espanol_Comments}}
+                </td>
+            </tr>
+            <tr>
+                <td class="col-subject">Philosophy</td>
+                <td>{{Teacher_Philosophy}}</td>
+                <td class="bg-blue">{{Philosophy_T1}}</td>
+                <td class="bg-blue">{{Philosophy_T2}}</td>
+                <td class="bg-blue">{{Philosophy_T3}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold; background-color: #f9f9f9;">Comments</td>
+                <td colspan="4" style="text-align: left; padding: 15px;">
+                    {{Philosophy_Comments}}
+                </td>
+            </tr>
+            <tr>
+                <td class="col-subject">Ética y Valores</td>
+                <td>{{Teacher_EYV}}</td>
+                <td class="bg-blue">{{EYV_T1}}</td>
+                <td class="bg-blue">{{EYV_T2}}</td>
+                <td class="bg-blue">{{EYV_T3}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold; background-color: #f9f9f9;">Comments</td>
+                <td colspan="4" style="text-align: left; padding: 15px;">
+                    {{EYV_Comments}}
+                </td>
+            </tr>
+            <tr>
+                <td class="col-subject">Algebra I / Geome-Stats</td>
+                <td>{{Teacher_ALG}}</td>
+                <td class="bg-blue">{{ALG_T1}}</td>
+                <td class="bg-blue">{{ALG_T2}}</td>
+                <td class="bg-blue">{{ALG_T3}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="life-skills-title">Life Skills</div>
+
+    <table class="life-skills-table">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Work Habits</th>
+                <th>Participation</th>
+                <th>Working in groups</th>
+                <th>Behavior and school value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="subject-col">Artso</td>
+                <td>{{Art_Work}}</td>
+                <td>{{Art_Participation}}</td>
+                <td>{{Art_Group}}</td>
+                <td>{{Art_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">PE</td>
+                <td>{{PE_Work}}</td>
+                <td>{{PE_Participation}}</td>
+                <td>{{PE_Group}}</td>
+                <td>{{PE_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">Technology</td>
+                <td>{{Tech_Work}}</td>
+                <td>{{Tech_Participation}}</td>
+                <td>{{Tech_Group}}</td>
+                <td>{{Tech_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">Biology</td>
+                <td>{{Biology_Work}}</td>
+                <td>{{Biology_Participation}}</td>
+                <td>{{Biology_Group}}</td>
+                <td>{{Biology_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">SS - History of EEUU</td>
+                <td>{{History_Work}}</td>
+                <td>{{History_Participation}}</td>
+                <td>{{History_Group}}</td>
+                <td>{{History_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">English</td>
+                <td>{{English_Work}}</td>
+                <td>{{English_Participation}}</td>
+                <td>{{English_Group}}</td>
+                <td>{{English_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">Español</td>
+                <td>{{Espanol_Work}}</td>
+                <td>{{Espanol_Participation}}</td>
+                <td>{{Espanol_Group}}</td>
+                <td>{{Espanol_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">Philosophy</td>
+                <td>{{Philosophy_Work}}</td>
+                <td>{{Philosophy_Participation}}</td>
+                <td>{{Philosophy_Group}}</td>
+                <td>{{Philosophy_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">Ética y Valores</td>
+                <td>{{EYV_Work}}</td>
+                <td>{{EYV_Participation}}</td>
+                <td>{{EYV_Group}}</td>
+                <td>{{EYV_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">Algebra I / Geome-Stats</td>
+                <td>{{Alg_Work}}</td>
+                <td>{{Alg_Participation}}</td>
+                <td>{{Alg_Group}}</td>
+                <td>{{Alg_Behavior}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="signatures-photo-container">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1xmqnawcHvSaRVovTCua6GL8yZUBurbrb" class="full-width-photo">
+    </div>
+
+</body>
+
+</html>
