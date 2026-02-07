@@ -190,6 +190,7 @@ MATERIAS_MAPEO = {
 }
 
 MATERIAS_MAPEO_HS = {
+    "FINALREPORT": "{{Final_report}}",
     "ArtsSo": {
         "Teacher": "{{Teacher_Art}}",
         "nota": "{{Art_T{t}}}",
@@ -271,7 +272,7 @@ MATERIAS_MAPEO_HS = {
     },
     "Algebra I / Geome-Stats": {
         "Teacher": "{{Teacher_ALG}}",
-        "nota": "{{EYV_T{t}}}",
+        "nota": "{{ALG_T{t}}}",
         "Work Habits": "{{ALG_Work}}",
         "Participation": "{{ALG_Participation}}",
         "Working in groups": "{{ALG_Group}}",
