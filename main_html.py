@@ -246,7 +246,7 @@ async def procesar_boletines_completos(rutaPyMS, rutaHS, trimestre):
     df_pyms['CodigoEstudiante'] = df_pyms['CodigoEstudiante'].astype(str).str.replace(r'\.0$', '', regex=True).str.strip()
     
     # 2. Cargar y limpiar base de datos HS (Grados 9 a 12)
-    df_hs = pd.read_excel(rutaHS, sheet_name='Tablero_notas_Oficial')
+    df_hs = pd.read_excel(rutaHS, sheet_name='Destination_oficial')
     df_hs['CodigoEstudiante'] = df_hs['CodigoEstudiante'].astype(str).str.replace(r'\.0$', '', regex=True).str.strip()
 
     # 3. Crear lista de tareas (ID, Ruta, Función a usar)
@@ -325,9 +325,9 @@ async def procesar_boletines_completos(rutaPyMS, rutaHS, trimestre):
 
 # === Ejecución (Cambia un poco por ser asíncrono) ===
 if __name__ == "__main__":
-    # asyncio.run(generar_boletin("20771", "baseprueba.xlsx", 1))
+    asyncio.run(generar_boletin("25931", "baseprueba.xlsx", 1))
     # asyncio.run(generar_boletinHS("28211", "basepruebaHS.xlsx", 1))
-    asyncio.run(procesar_boletines_completos("baseprueba.xlsx", "basepruebaHS.xlsx", 1))
+    # asyncio.run(procesar_boletines_completos("baseprueba.xlsx", "basepruebaHS.xlsx", 2))
     # asyncio.run(procesar_grado_1("baseprueba.xlsx", 1))
 
 # NO PONE LAS NOTAS DE 9 EN ADELANTE
