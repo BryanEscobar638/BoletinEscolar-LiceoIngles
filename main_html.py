@@ -326,8 +326,5 @@ async def procesar_boletines_completos(rutaPyMS, rutaHS, trimestre):
 # === Ejecución (Cambia un poco por ser asíncrono) ===
 if __name__ == "__main__":
     # asyncio.run(generar_boletin("25931", "baseprueba.xlsx", 1))
-    asyncio.run(generar_boletinHS("28211", "basepruebaHS.xlsx", 1))
-    # asyncio.run(procesar_boletines_completos("Data Domains Elementary.xlsx", "Destination HS.xlsx", 2))
-    # asyncio.run(procesar_grado_1("baseprueba.xlsx", 1))
-
-# NO PONE LAS NOTAS DE 9 EN ADELANTE
+    # asyncio.run(generar_boletinHS("28211", "basepruebaHS.xlsx", 1))
+    asyncio.run(procesar_boletines_completos("Data Domains Elementary.xlsx", "Destination HS.xlsx", 2))
