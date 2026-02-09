@@ -232,67 +232,102 @@ async def generar_boletinHS(id_estudiante, ruta_excel, trimestre_a_imprimir):
     except Exception as e:
         print(f"❌ Error en Renderizado/PDF: {e}")
 
-async def procesar_grado_1(ruta_excel, trimestre):
-    # --- Inicio del cronómetro global ---
+async def procesar_boletines_completos(rutaPyMS, rutaHS, trimestre):
+    """
+    Procesa grados 1-8 usando rutaPyMS y generar_boletin
+    Procesa grados 9-12 usando rutaHS y generar_boletinHS
+    """
     tiempo_inicio_total = time.time()
 
-    # 1. Carga y limpieza inicial
-    print("📊 Cargando base de datos...")
-    df_notas = pd.read_excel(ruta_excel, sheet_name='Tablero_notas_Oficial')
-    df_coments = pd.read_excel(ruta_excel, sheet_name='Ls_Comments_Oficial')
+    print("📊 Cargando y preparando bases de datos...")
     
-    for df in [df_notas, df_coments]:
-        df.columns = df.columns.str.strip()
-        df['CodigoEstudiante'] = df['CodigoEstudiante'].astype(str).str.replace(r'\.0$', '', regex=True).str.strip()
+    # 1. Cargar y limpiar base de datos PyMS (Grados 1 a 8)
+    df_pyms = pd.read_excel(rutaPyMS, sheet_name='Tablero_notas_Oficial')
+    df_pyms['CodigoEstudiante'] = df_pyms['CodigoEstudiante'].astype(str).str.replace(r'\.0$', '', regex=True).str.strip()
     
-    # 2. Filtrado de IDs únicos de grado 1
-    estudiantes_grado_1 = df_notas[df_notas['HR'].astype(str).str.startswith('1')].copy()
-    lista_ids = estudiantes_grado_1['CodigoEstudiante'].unique().tolist()
-    
-    total_a_generar = len(lista_ids)
-    print(f"🚀 Iniciando generación de {total_a_generar} boletines PDF con Playwright...")
+    # 2. Cargar y limpiar base de datos HS (Grados 9 a 12)
+    df_hs = pd.read_excel(rutaHS, sheet_name='Tablero_notas_Oficial')
+    df_hs['CodigoEstudiante'] = df_hs['CodigoEstudiante'].astype(str).str.replace(r'\.0$', '', regex=True).str.strip()
 
-    # 3. BUCLE DE GENERACIÓN
+    # 3. Crear lista de tareas (ID, Ruta, Función a usar)
+    tareas = []
+
+    # Filtrar estudiantes de grado 1 a 8 (PyMS)
+    # Suponiendo que la columna 'HR' empieza con el número del grado
+    for grado in range(1, 9):
+        ids = df_pyms[df_pyms['HR'].astype(str).str.startswith(str(grado))]['CodigoEstudiante'].unique().tolist()
+        for id_est in ids:
+            tareas.append({
+                'id': id_est,
+                'ruta': rutaPyMS,
+                'tipo': 'PyMS',
+                'grado': grado
+            })
+
+    # Filtrar estudiantes de grado 9 a 12 (HS)
+    for grado in range(9, 13):
+        ids = df_hs[df_hs['HR'].astype(str).str.startswith(str(grado))]['CodigoEstudiante'].unique().tolist()
+        for id_est in ids:
+            tareas.append({
+                'id': id_est,
+                'ruta': rutaHS,
+                'tipo': 'HS',
+                'grado': grado
+            })
+
+    total_a_generar = len(tareas)
+    print(f"🚀 Se detectaron {total_a_generar} estudiantes en total.")
+    print(f"Iniciando generación de PDFs con Playwright...\n")
+
+    # 4. BUCLE DE GENERACIÓN ÚNICO
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
         
-        for i, id_est in enumerate(lista_ids):
-            # --- Inicio cronómetro por estudiante ---
+        for i, tarea in enumerate(tareas):
             tiempo_inicio_est = time.time()
+            id_est = tarea['id']
             
             try:
-                # Llamada a la función principal
-                await generar_boletin(id_est, ruta_excel, trimestre)
+                # SELECCIÓN DE FUNCIÓN SEGÚN EL TIPO
+                if tarea['tipo'] == 'PyMS':
+                    # Grados 1-8
+                    await generar_boletin(id_est, tarea['ruta'], trimestre)
+                else:
+                    # Grados 9-12
+                    await generar_boletinHS(id_est, tarea['ruta'], trimestre)
                 
-                # --- Cálculo de tiempo por estudiante ---
+                # Cálculos de tiempo y progreso
                 tiempo_est = time.time() - tiempo_inicio_est
-                faltantes = total_a_generar - (i + 1)
+                procesados = i + 1
+                faltantes = total_a_generar - procesados
                 
-                print(f"✅ [{i+1}/{total_a_generar}] ID {id_est} generado en {tiempo_est:.2f} segundos.")
+                print(f"✅ [{procesados}/{total_a_generar}] ID {id_est} (Grado {tarea['grado']}) generado en {tiempo_est:.2f}s.")
                 
+                # Informar cada 5 archivos faltantes
                 if faltantes % 5 == 0 and faltantes > 0:
                     print(f"⏳ Faltan {faltantes} archivos por procesar...")
                     
             except Exception as e:
-                print(f"❌ Error con el estudiante {id_est}: {e}")
+                print(f"❌ Error con el estudiante {id_est} (Grado {tarea.get('grado')}): {e}")
 
         await browser.close()
 
-    # --- Fin del cronómetro global ---
+    # --- Resumen Final ---
     tiempo_total = time.time() - tiempo_inicio_total
     minutos = int(tiempo_total // 60)
     segundos = int(tiempo_total % 60)
 
     print(f"\n{'='*40}")
-    print("✅ ¡PROCESO TOTALMENTE TERMINADO!")
-    print(f"⏱️ Tiempo total de ejecución: {minutos} min {segundos} seg")
-    print(f"📂 Revisa la carpeta 'reportes'.")
+    print("✅ ¡PROCESO DE GRADOS 1-12 TERMINADO!")
+    print(f"⏱️ Tiempo total: {minutos} min {segundos} seg")
+    print(f"📦 Total procesados: {total_a_generar}")
     print(f"{'='*40}")
 
 # === Ejecución (Cambia un poco por ser asíncrono) ===
 if __name__ == "__main__":
     # asyncio.run(generar_boletin("20771", "baseprueba.xlsx", 1))
-    asyncio.run(generar_boletinHS("28211", "basepruebaHS.xlsx", 1))
+    # asyncio.run(generar_boletinHS("28211", "basepruebaHS.xlsx", 1))
+    asyncio.run(procesar_boletines_completos("baseprueba.xlsx", "basepruebaHS.xlsx", 1))
     # asyncio.run(procesar_grado_1("baseprueba.xlsx", 1))
 
 # NO PONE LAS NOTAS DE 9 EN ADELANTE
