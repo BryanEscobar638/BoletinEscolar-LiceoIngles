@@ -215,6 +215,10 @@ async def generar_boletinHS(id_estudiante, ruta_excel, trimestre_a_imprimir):
             plantilla = "Grades9template.html"
         elif "10" in hr_val:
             plantilla = "Grades10template.html"
+        elif "11" in hr_val:
+            plantilla = "Grades11template.html"
+        elif "12" in hr_val:
+            plantilla = "Grades12template.html"
         
         html_render = env.get_template(plantilla).render(contexto)
         
@@ -288,7 +292,7 @@ async def procesar_grado_1(ruta_excel, trimestre):
 # === Ejecución (Cambia un poco por ser asíncrono) ===
 if __name__ == "__main__":
     # asyncio.run(generar_boletin("20771", "baseprueba.xlsx", 1))
-    asyncio.run(generar_boletinHS("22412", "basepruebaHS.xlsx", 1))
+    asyncio.run(generar_boletinHS("28211", "basepruebaHS.xlsx", 1))
     # asyncio.run(procesar_grado_1("baseprueba.xlsx", 1))
 
 # NO PONE LAS NOTAS DE 9 EN ADELANTE

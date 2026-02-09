@@ -234,6 +234,33 @@ MATERIAS_MAPEO_HS = {
         "Working in groups": "{{History_Group}}",
         "Behavior and school values": "{{History_Behavior}}"
     },
+    "History of Colombia": {
+        "Teacher": "{{Teacher_HOC}}",
+        "nota": "{{HOC_T{t}}}",
+        "comments": "{{HOC_Comments}}",
+        "Work Habits": "{{HOC_Work}}",
+        "Participation": "{{HOC_Participation}}",
+        "Working in groups": "{{HOC_Group}}",
+        "Behavior and school values": "{{HOC_Behavior}}"
+    },
+    "SS - History: 20th century": {
+        "Teacher": "{{Teacher_History}}",
+        "nota": "{{History_T{t}}}",
+        "comments": "{{History_Comments}}",
+        "Work Habits": "{{History_Work}}",
+        "Participation": "{{History_Participation}}",
+        "Working in groups": "{{History_Group}}",
+        "Behavior and school values": "{{History_Behavior}}"
+    },
+    "SS - History: Modern Times": {
+        "Teacher": "{{Teacher_History}}",
+        "nota": "{{History_T{t}}}",
+        "comments": "{{History_Comments}}",
+        "Work Habits": "{{History_Work}}",
+        "Participation": "{{History_Participation}}",
+        "Working in groups": "{{History_Group}}",
+        "Behavior and school values": "{{History_Behavior}}"
+    },
     "English": {
         "Teacher": "{{Teacher_English}}",
         "nota": "{{English_T{t}}}",
@@ -261,6 +288,15 @@ MATERIAS_MAPEO_HS = {
         "Working in groups": "{{Philosophy_Group}}",
         "Behavior and school values": "{{Philosophy_Behavior}}"
     },
+    "Filosofía": {
+        "Teacher": "{{Teacher_Philosophy}}",
+        "nota": "{{Philosophy_T{t}}}",
+        "comments": "{{Philosophy_Comments}}",
+        "Work Habits": "{{Philosophy_Work}}",
+        "Participation": "{{Philosophy_Participation}}",
+        "Working in groups": "{{Philosophy_Group}}",
+        "Behavior and school values": "{{Philosophy_Behavior}}"
+    },
     "Ética y Valores": {
         "Teacher": "{{Teacher_EYV}}",
         "nota": "{{EYV_T{t}}}",
@@ -277,5 +313,148 @@ MATERIAS_MAPEO_HS = {
         "Participation": "{{ALG_Participation}}",
         "Working in groups": "{{ALG_Group}}",
         "Behavior and school values": "{{ALG_Behavior}}"
+    },
+    "Algebra II / Geome-Stats": {
+        "Teacher": "{{Teacher_ALG}}",
+        "nota": "{{ALG_T{t}}}",
+        "Work Habits": "{{ALG_Work}}",
+        "Participation": "{{ALG_Participation}}",
+        "Working in groups": "{{ALG_Group}}",
+        "Behavior and school values": "{{ALG_Behavior}}"
+    },
+    "AP E-Lang Composition": {
+        "Teacher": "{{Teacher_APE}}",
+        "nota": "{{APE_T{t}}}",
+        "comments": "{{APE_Comments}}",
+        "Work Habits": "{{APE_Work}}",
+        "Participation": "{{APE_Participation}}",
+        "Working in groups": "{{APE_Group}}",
+        "Behavior and school values": "{{APE_Behavior}}"
+    },
+    "AP Microeconomics": {
+        "Teacher": "{{Teacher_Microeconomics}}",
+        "nota": "{{Microeconomics_T{t}}}",
+        "comments": "{{Microeconomics_Comments}}",
+        "Work Habits": "{{Microeconomics_Work}}",
+        "Participation": "{{Microeconomics_Participation}}",
+        "Working in groups": "{{Microeconomics_Group}}",
+        "Behavior and school values": "{{Microeconomics_Behavior}}"
+    },
+    "AP Macroeconomics": {
+        "Teacher": "{{Teacher_Macroeconomics}}",
+        "nota": "{{Macroeconomics_T{t}}}",
+        "comments": "{{Macroeconomics_Comments}}",
+        "Work Habits": "{{Macroeconomics_Work}}",
+        "Participation": "{{Macroeconomics_Participation}}",
+        "Working in groups": "{{Macroeconomics_Group}}",
+        "Behavior and school values": "{{Macroeconomics_Behavior}}"
+    },
+    "AP Capstone Seminar": {
+        "Teacher": "{{Teacher_Capstone}}",
+        "nota": "{{Capstone_T{t}}}",
+        "comments": "{{Capstone_Comments}}",
+        "Work Habits": "{{Capstone_Work}}",
+        "Participation": "{{Capstone_Participation}}",
+        "Working in groups": "{{Capstone_Group}}",
+        "Behavior and school values": "{{Capstone_Behavior}}"
+    },
+    "AP Capstone Research": {
+        "Teacher": "{{Teacher_Capstone}}",
+        "nota": "{{Capstone_T{t}}}",
+        "comments": "{{Capstone_Comments}}",
+        "Work Habits": "{{Capstone_Work}}",
+        "Participation": "{{Capstone_Participation}}",
+        "Working in groups": "{{Capstone_Group}}",
+        "Behavior and school values": "{{Capstone_Behavior}}"
+    },
+    "AP E-Literat Composition": {
+        "Teacher": "{{Teacher_Literature}}",
+        "nota": "{{Literature_T{t}}}",
+        "comments": "{{Literature_Comments}}",
+        "Work Habits": "{{Literature_Work}}",
+        "Participation": "{{Literature_Participation}}",
+        "Working in groups": "{{Literature_Group}}",
+        "Behavior and school values": "{{Literature_Behavior}}"
+    },
+    "AP Human Geography": {
+        "Teacher": "{{Teacher_Human}}",
+        "nota": "{{Human_T{t}}}",
+        "comments": "{{Human_Comments}}",
+        "Work Habits": "{{Human_Work}}",
+        "Participation": "{{Human_Participation}}",
+        "Working in groups": "{{Human_Group}}",
+        "Behavior and school values": "{{Human_Behavior}}"
+    },
+    "Test. Preparation": {
+        "Teacher": "{{Teacher_Test}}",
+        "nota": "{{Test_T{t}}}",
+        "comments": "{{Test_Comments}}",
+        "Work Habits": "{{Test_Work}}",
+        "Participation": "{{Test_Participation}}",
+        "Working in groups": "{{Test_Group}}",
+        "Behavior and school values": "{{Test_Behavior}}"
+    },
+    "Trigo/Geo/Stats": {
+        "Teacher": "{{Teacher_TGS}}",
+        "nota": "{{TGS_T{t}}}",
+        "comments": "{{TGS_Comments}}",
+        "Work Habits": "{{TGS_Work}}",
+        "Participation": "{{TGS_Participation}}",
+        "Working in groups": "{{TGS_Group}}",
+        "Behavior and school values": "{{TGS_Behavior}}"
+    },
+    "Calculus/Geo/Stats": {
+        "Teacher": "{{Teacher_CGS}}",
+        "nota": "{{CGS_T{t}}}",
+        "comments": "{{CGS_Comments}}",
+        "Work Habits": "{{CGS_Work}}",
+        "Participation": "{{CGS_Participation}}",
+        "Working in groups": "{{CGS_Group}}",
+        "Behavior and school values": "{{CGS_Behavior}}"
+    },
+    "Physics": {
+        "Teacher": "{{Teacher_Physics}}",
+        "nota": "{{Physics_T{t}}}",
+        "comments": "{{Physics_Comments}}",
+        "Work Habits": "{{Physics_Work}}",
+        "Participation": "{{Physics_Participation}}",
+        "Working in groups": "{{Physics_Group}}",
+        "Behavior and school values": "{{Physics_Behavior}}"
+    },
+    "Chemistry": {
+        "Teacher": "{{Teacher_Chemistry}}",
+        "nota": "{{Chemistry_T{t}}}",
+        "comments": "{{Chemistry_Comments}}",
+        "Work Habits": "{{Chemistry_Work}}",
+        "Participation": "{{Chemistry_Participation}}",
+        "Working in groups": "{{Chemistry_Group}}",
+        "Behavior and school values": "{{Chemistry_Behavior}}"
+    },
+    "AP Computer Principles": {
+        "Teacher": "{{Teacher_Computer}}",
+        "nota": "{{Computer_T{t}}}",
+        "comments": "{{Computer_Comments}}",
+        "Work Habits": "{{Computer_Work}}",
+        "Participation": "{{Computer_Participation}}",
+        "Working in groups": "{{Computer_Group}}",
+        "Behavior and school values": "{{Computer_Behavior}}"
+    },
+    "AP Computer Advanced": {
+        "Teacher": "{{Teacher_Computer}}",
+        "nota": "{{Computer_T{t}}}",
+        "comments": "{{Computer_Comments}}",
+        "Work Habits": "{{Computer_Work}}",
+        "Participation": "{{Computer_Participation}}",
+        "Working in groups": "{{Computer_Group}}",
+        "Behavior and school values": "{{Computer_Behavior}}"
+    },
+    "Ciencias Políticas": {
+        "Teacher": "{{Teacher_Politicas}}",
+        "nota": "{{Politicas_T{t}}}",
+        "comments": "{{Politicas_Comments}}",
+        "Work Habits": "{{Politicas_Work}}",
+        "Participation": "{{Politicas_Participation}}",
+        "Working in groups": "{{Politicas_Group}}",
+        "Behavior and school values": "{{Politicas_Behavior}}"
     },
 }
