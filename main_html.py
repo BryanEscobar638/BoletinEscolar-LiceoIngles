@@ -177,13 +177,21 @@ async def procesar_boletines_completos(rutaPyMS, rutaHS, trimestre):
             if ctx:
                 html_render = env.get_template(plant).render(ctx)
                 await page.set_content(html_render)
+                
+                # Definimos el nombre del archivo con el trimestre
+                # Ejemplo: Boletin_HS_28211_TRIMESTER_1.pdf
+                nombre_pdf = f"Boletin_{tarea['tipo']}_{id_est}_TRIMESTER_{trimestre}.pdf"
+                ruta_salida = os.path.join("reportes", nombre_pdf)
+
                 await page.pdf(
-                    path=f"reportes/Boletin_{tarea['tipo']}_{id_est}.pdf",
+                    path=ruta_salida,
                     format="Letter",
                     print_background=True,
                     margin={"top": "1cm", "bottom": "1cm", "left": "1cm", "right": "1cm"}
                 )
-                print(f"✅ [{i+1}/{total}] ID {id_est} - {time.time()-t_inicio_est:.2f}s")
+                
+                # Imprimimos el progreso incluyendo el trimestre en el mensaje de consola
+                print(f"✅ [{i+1}/{total}] ID {id_est} (T{trimestre}) - {time.time()-t_inicio_est:.2f}s")
 
         await browser.close()
 
