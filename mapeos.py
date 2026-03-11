@@ -109,9 +109,9 @@ MATERIAS_MAPEO = {
     },
     ("Arte", "Art"): {
         "Teacher": "{{Teacher_Art}}",
-        "Artistic concepts": "{{A_Art_T{t}}}",
-        "Creative expression": "{{A_Cre_T{t}}}",
-        "Creating and Presenting": "{{A_Cre_T{t}}}",
+        "Artistic Concepts": "{{A_Art_T{t}}}",
+        "Creative Expression": "{{A_Cre_T{t}}}",
+        "Creating and Presenting": "{{A_Crepre_T{t}}}",
         "Responding and Connecting": "{{A_Res_T{t}}}",
         "Work Habits": "{{Art_Work}}",
         "Participation": "{{Art_Participation}}",
