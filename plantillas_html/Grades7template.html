@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: letter;
+            /* Definimos márgenes normales. Sin @frame el contenido fluye solo */
+            margin-top: 1.5cm;
+            margin-bottom: 2.5cm;
+            margin-left: 1.5cm;
+            margin-right: 1.5cm;
+
+            /* El footer se define así para que se repita en cada página */
+            @bottom-center {
+                content: "Fundación Liceo Inglés 2025-2026";
+                font-family: 'Arial', sans-serif;
+                font-size: 9pt;
+                color: #000;
+            }
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            font-size: 10pt;
+            line-height: 1.2;
+            color: #000;
+        }
+
+        .header-top {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        /* Arreglo de imágenes con puntos fijos */
+        .logo-img {
+            width: 80pt;
+        }
+
+        .full-width-photo {
+            width: 480pt;
+            height: auto;
+        }
+
+        .report-title {
+            font-size: 16pt;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .school-text {
+            color: #A62617;
+            font-size: 14pt;
+            margin: 0;
+        }
+
+        .year-text {
+            color: #A62617;
+            font-size: 12pt;
+            margin: 0 0 15px 0;
+        }
+
+        /* TABLAS: Configuradas para romperse entre páginas */
+        .main-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1.5px solid #000;
+            /* IMPORTANTE: Permite que la tabla se divida */
+            -pdf-keep-with-next: false;
+        }
+
+        .main-table th,
+        .main-table td {
+            border: 1px dotted #000;
+            padding: 6px;
+        }
+
+        /* Evita que una celda de texto se parta feo, pero permite que la tabla salte */
+        tr {
+            page-break-inside: avoid;
+        }
+
+        .red-top-border {
+            border-top: 4px solid #A62617 !important;
+            background-color: #F2F2F2;
+        }
+
+        .col-header {
+            text-align: center;
+            font-weight: bold;
+            background-color: #F2F2F2;
+        }
+
+        .grade-cell {
+            background-color: #D9E5FF;
+            text-align: center;
+            width: 45pt;
+        }
+
+        .reading-side-label {
+            text-align: center;
+            vertical-align: middle;
+            font-size: 12pt;
+            width: 80pt;
+        }
+
+        .comments-row {
+            background-color: #F2F2F2;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        ul.domain-list {
+            list-style-type: disc;
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .signatures-photo-container {
+            width: 100%;
+            margin-top: 30px;
+            text-align: center;
+            /* Si las firmas no caben al final de la hoja, saltan completas a la siguiente */
+            page-break-inside: avoid;
+        }
+
+        /* Para añadir esta tabla de Life Skills a tu boletín usando la "bala de plata"(Playwright),
+        aquí tienes el código necesario. He respetado los nombres de las variables que se ven en tu imagen para que Jinja2 las reconozca automáticamente. 1. Añade esto a tu CSS Este estilo asegura que los bordes rojos punteados y los encabezados grises se vean exactamente como en tu imagen. CSS */
+
+        /* Estilos para la tabla Life Skills */
+        .life-skills-title {
+            color: #FF0000;
+            font-size: 18pt;
+            text-align: center;
+            margin: 20pt 0 10pt 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .life-skills-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid #A62617;
+            /* Borde exterior grueso y rojo */
+        }
+
+        .life-skills-table th {
+            background-color: #EEEEEE;
+            color: #000;
+            font-weight: bold;
+            padding: 10px;
+            border: 1px dotted #FF0000;
+            /* Bordes punteados rojos */
+            text-align: center;
+        }
+
+        .life-skills-table td {
+            border: 1px dotted #FF0000;
+            padding: 8px;
+            text-align: center;
+            font-size: 10pt;
+        }
+
+        .subject-col {
+            font-style: italic;
+            font-weight: bold;
+            text-align: center;
+            width: 20%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header-top">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1uiVMuC-Eps4u7JgCFbUiXNylWn-KPSI2" class="logo-img">
+        <div class="report-title">{{Final_report}}</div>
+    </div>
+
+    <table style="width: 100%; border: none; margin-bottom: 10pt;">
+        <tr>
+            <td style="width: 300pt; vertical-align: top;">
+                <h2 class="school-text">Fundación Liceo Inglés</h2>
+                <h3 class="year-text">School Year 2025-2026</h3>
+                <div style="font-size: 10pt;">
+                    <p><strong>Student Name:</strong> {{Student_name}}</p>
+                    <p><strong>Homeroom:</strong> {{Student_HR}}</p>
+                    <p><strong>Homeroom Teacher:</strong> {{Student_HRteacher}}</p>
+                    <p><strong>Código:</strong> {{Student_code}}</p>
+                </div>
+            </td>
+            <td style="width: 150pt; vertical-align: top; padding-left: 20px;">
+                <div style="font-size: 9pt; border: 1pt solid #ccc; padding: 5pt;">
+                    <strong>Progress key</strong><br>
+                    N/A = Not assessed<br>
+                    Not Evidence | Basic<br>
+                    Proficient | Mastery
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div style="color: #FF0000; font-size: 16pt; text-align: center; margin: 15pt 0 5pt 0;">Art</div>
+    <table class="main-table">
+        <tr class="red-top-border">
+            <th class="col-header">Teacher:<br>{{Teacher_Art}}</th>
+            <th class="col-header">Domain/Strand</th>
+            <th class="col-header">Trimester 1</th>
+            <th class="col-header">Trimester 2</th>
+            <th class="col-header">Trimester 3</th>
+        </tr>
+        <tr>
+            <td rowspan="2" class="reading-side-label">Art</td>
+            <td>
+                <ul class="domain-list">
+                    <li>Creating and Presenting</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{A_Crepre_T1}}</td>
+            <td class="grade-cell">{{A_Crepre_T2}}</td>
+            <td class="grade-cell">{{A_Crepre_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Responding and Connecting</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{A_Res_T1}}</td>
+            <td class="grade-cell">{{A_Res_T2}}</td>
+            <td class="grade-cell">{{A_Res_T3}}</td>
+        </tr>
+    </table>
+
+    <div style="color: #FF0000; font-size: 16pt; text-align: center; margin: 15pt 0 5pt 0;">English</div>
+    <table class="main-table">
+        <tr class="red-top-border">
+            <th class="col-header">Teacher:<br>{{Teacher_English}}</th>
+            <th class="col-header">Domain/Strand</th>
+            <th class="col-header">Trimester 1</th>
+            <th class="col-header">Trimester 2</th>
+            <th class="col-header">Trimester 3</th>
+        </tr>
+        <tr>
+            <td rowspan="4" class="reading-side-label">English</td>
+            <td>
+                <ul class="domain-list">
+                    <li>Reading</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{E_Rea_T1}}</td>
+            <td class="grade-cell">{{E_Rea_T2}}</td>
+            <td class="grade-cell">{{E_Rea_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Writing</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{E_Wri_T1}}</td>
+            <td class="grade-cell">{{E_Wri_T2}}</td>
+            <td class="grade-cell">{{E_Wri_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Listening and Speaking</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{E_Lis_T1}}</td>
+            <td class="grade-cell">{{E_Lis_T2}}</td>
+            <td class="grade-cell">{{E_Lis_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Language Foundations</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{E_Lan_T1}}</td>
+            <td class="grade-cell">{{E_Lan_T2}}</td>
+            <td class="grade-cell">{{E_Lan_T3}}</td>
+        </tr>
+        <tr>
+            <td colspan="5" class="comments-row">Comments</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Strength</td>
+            <td colspan="4">{{English_Strength}}</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Growth</td>
+            <td colspan="4">{{English_Growth}}</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Goal</td>
+            <td colspan="4">{{English_Goal}}</td>
+        </tr>
+    </table>
+
+    <div style="color: #FF0000; font-size: 16pt; text-align: center; margin: 15pt 0 5pt 0;">Español</div>
+    <table class="main-table">
+        <tr class="red-top-border">
+            <th class="col-header">Teacher:<br>{{Teacher_Espanol}}</th>
+            <th class="col-header">Domain/Strand</th>
+            <th class="col-header">Trimester 1</th>
+            <th class="col-header">Trimester 2</th>
+            <th class="col-header">Trimester 3</th>
+        </tr>
+        <tr>
+            <td rowspan="4" class="reading-side-label">Español</td>
+            <td>
+                <ul class="domain-list">
+                    <li>Producción textual</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{E_Pro_T1}}</td>
+            <td class="grade-cell">{{E_Pro_T2}}</td>
+            <td class="grade-cell">{{E_Pro_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Comprensión e interpretación textual</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{E_Com_T1}}</td>
+            <td class="grade-cell">{{E_Com_T2}}</td>
+            <td class="grade-cell">{{E_Com_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Literatura</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{E_Lit_T1}}</td>
+            <td class="grade-cell">{{E_Lit_T2}}</td>
+            <td class="grade-cell">{{E_Lit_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Medios y simbolos de comunicación</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{E_Med_T1}}</td>
+            <td class="grade-cell">{{E_Med_T2}}</td>
+            <td class="grade-cell">{{E_Med_T3}}</td>
+        </tr>
+        <tr>
+            <td colspan="5" class="comments-row">Comments</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Strength</td>
+            <td colspan="4">{{Espanol_Strength}}</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Growth</td>
+            <td colspan="4">{{Espanol_Growth}}</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Goal</td>
+            <td colspan="4">{{Espanol_Goal}}</td>
+        </tr>
+    </table>
+
+    <div style="color: #FF0000; font-size: 16pt; text-align: center; margin: 15pt 0 5pt 0;">Mathematics</div>
+    <table class="main-table">
+        <tr class="red-top-border">
+            <th class="col-header">Teacher:<br>{{Teacher_Math}}</th>
+            <th class="col-header">Domain/Strand</th>
+            <th class="col-header">Trimester 1</th>
+            <th class="col-header">Trimester 2</th>
+            <th class="col-header">Trimester 3</th>
+        </tr>
+        <tr>
+            <td rowspan="4" class="reading-side-label">Mathematics</td>
+            <td>
+                <ul class="domain-list">
+                    <li>Ratios and proportional relationships</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{M_Rat_T1}}</td>
+            <td class="grade-cell">{{M_Rat_T2}}</td>
+            <td class="grade-cell">{{M_Rat_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>The number system</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{M_Numsys_T1}}</td>
+            <td class="grade-cell">{{M_Numsys_T2}}</td>
+            <td class="grade-cell">{{M_Numsys_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Expressions and equations</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{M_Exp_T1}}</td>
+            <td class="grade-cell">{{M_Exp_T2}}</td>
+            <td class="grade-cell">{{M_Exp_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Geometry and Stadistics</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{M_GeoSta_T1}}</td>
+            <td class="grade-cell">{{M_GeoSta_T2}}</td>
+            <td class="grade-cell">{{M_GeoSta_T3}}</td>
+        </tr>
+        <tr>
+            <td colspan="5" class="comments-row">Comments</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Strength</td>
+            <td colspan="4">{{Math_Strength}}</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Growth</td>
+            <td colspan="4">{{Math_Growth}}</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Goal</td>
+            <td colspan="4">{{Math_Goal}}</td>
+        </tr>
+    </table>
+
+    <div style="color: #FF0000; font-size: 16pt; text-align: center; margin: 15pt 0 5pt 0;">Music</div>
+    <table class="main-table">
+        <tr class="red-top-border">
+            <th class="col-header">Teacher:<br>{{Teacher_Music}}</th>
+            <th class="col-header">Domain/Strand</th>
+            <th class="col-header">Trimester 1</th>
+            <th class="col-header">Trimester 2</th>
+            <th class="col-header">Trimester 3</th>
+        </tr>
+        <tr>
+            <td rowspan="2" class="reading-side-label">Music</td>
+            <td>
+                <ul class="domain-list">
+                    <li>Creating and Performing</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{M_CrePer_T1}}</td>
+            <td class="grade-cell">{{M_CrePer_T2}}</td>
+            <td class="grade-cell">{{M_CrePer_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Connecting and Understanding Contexts</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{M_Con_T1}}</td>
+            <td class="grade-cell">{{M_Con_T2}}</td>
+            <td class="grade-cell">{{M_Con_T3}}</td>
+        </tr>
+    </table>
+
+    <div style="color: #FF0000; font-size: 16pt; text-align: center; margin: 15pt 0 5pt 0;">Physical Education</div>
+    <table class="main-table">
+        <tr class="red-top-border">
+            <th class="col-header">Teacher:<br>{{Teacher_Physical}}</th>
+            <th class="col-header">Domain/Strand</th>
+            <th class="col-header">Trimester 1</th>
+            <th class="col-header">Trimester 2</th>
+            <th class="col-header">Trimester 3</th>
+        </tr>
+        <tr>
+            <td rowspan="2" class="reading-side-label">PE</td>
+            <td>
+                <ul class="domain-list">
+                    <li>Habilidades motrices</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{P_Hab_T1}}</td>
+            <td class="grade-cell">{{P_Hab_T2}}</td>
+            <td class="grade-cell">{{P_Hab_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Disposición</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{P_Dis_T1}}</td>
+            <td class="grade-cell">{{P_Dis_T2}}</td>
+            <td class="grade-cell">{{P_Dis_T3}}</td>
+        </tr>
+    </table>
+
+    <div style="color: #FF0000; font-size: 16pt; text-align: center; margin: 15pt 0 5pt 0;">Religión, Ética y Valores
+    </div>
+    <table class="main-table">
+        <tr class="red-top-border">
+            <th class="col-header">Teacher:<br>{{Teacher_Religion}}</th>
+            <th class="col-header">Domain/Strand</th>
+            <th class="col-header">Trimester 1</th>
+            <th class="col-header">Trimester 2</th>
+            <th class="col-header">Trimester 3</th>
+        </tr>
+        <tr>
+            <td rowspan="2" class="reading-side-label">Religión</td>
+            <td>
+                <ul class="domain-list">
+                    <li>Identidad y formación personal</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{R_Ide_T1}}</td>
+            <td class="grade-cell">{{R_Ide_T2}}</td>
+            <td class="grade-cell">{{R_Ide_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Convivencia y ciudadanía</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{R_Con_T1}}</td>
+            <td class="grade-cell">{{R_Con_T2}}</td>
+            <td class="grade-cell">{{R_Con_T3}}</td>
+        </tr>
+    </table>
+
+    <div style="color: #FF0000; font-size: 16pt; text-align: center; margin: 15pt 0 5pt 0;">Science</div>
+    <table class="main-table">
+        <tr class="red-top-border">
+            <th class="col-header">Teacher:<br>{{Teacher_Science}}</th>
+            <th class="col-header">Domain/Strand</th>
+            <th class="col-header">Trimester 1</th>
+            <th class="col-header">Trimester 2</th>
+            <th class="col-header">Trimester 3</th>
+        </tr>
+        <tr>
+            <td rowspan="4" class="reading-side-label">Science</td>
+            <td>
+                <ul class="domain-list">
+                    <li>Physical Science</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{S_Phy_T1}}</td>
+            <td class="grade-cell">{{S_Phy_T2}}</td>
+            <td class="grade-cell">{{S_Phy_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Life Science</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{S_Lif_T1}}</td>
+            <td class="grade-cell">{{S_Lif_T2}}</td>
+            <td class="grade-cell">{{S_Lif_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Earth and Space Sciences</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{S_Ear_T1}}</td>
+            <td class="grade-cell">{{S_Ear_T2}}</td>
+            <td class="grade-cell">{{S_Ear_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Engineering Design</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{S_Eng_T1}}</td>
+            <td class="grade-cell">{{S_Eng_T2}}</td>
+            <td class="grade-cell">{{S_Eng_T3}}</td>
+        </tr>
+        <tr>
+            <td colspan="5" class="comments-row">Comments</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Strength</td>
+            <td colspan="4">{{Science_Strength}}</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Growth</td>
+            <td colspan="4">{{Science_Growth}}</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Goal</td>
+            <td colspan="4">{{Science_Goal}}</td>
+        </tr>
+    </table>
+
+    <div style="color: #FF0000; font-size: 16pt; text-align: center; margin: 15pt 0 5pt 0;">Social Studies</div>
+    <table class="main-table">
+        <tr class="red-top-border">
+            <th class="col-header">Teacher:<br>{{Teacher_Social}}</th>
+            <th class="col-header">Domain/Strand</th>
+            <th class="col-header">Trimester 1</th>
+            <th class="col-header">Trimester 2</th>
+            <th class="col-header">Trimester 3</th>
+        </tr>
+        <tr>
+            <td rowspan="3" class="reading-side-label">Social Studies</td>
+            <td>
+                <ul class="domain-list">
+                    <li>History</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{So_His_T1}}</td>
+            <td class="grade-cell">{{So_His_T2}}</td>
+            <td class="grade-cell">{{So_His_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Geography</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{So_Geo_T1}}</td>
+            <td class="grade-cell">{{So_Geo_T2}}</td>
+            <td class="grade-cell">{{So_Geo_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Civics and Government</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{So_Civ_T1}}</td>
+            <td class="grade-cell">{{So_Civ_T2}}</td>
+            <td class="grade-cell">{{So_Civ_T3}}</td>
+        </tr>
+        <tr>
+            <td colspan="5" class="comments-row">Comments</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Strength</td>
+            <td colspan="4">{{SocialStudies_Strength}}</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Growth</td>
+            <td colspan="4">{{SocialStudies_Growth}}</td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Goal</td>
+            <td colspan="4">{{SocialStudies_Goal}}</td>
+        </tr>
+    </table>
+
+    <div style="color: #FF0000; font-size: 16pt; text-align: center; margin: 15pt 0 5pt 0;">Technology</div>
+    <table class="main-table">
+        <tr class="red-top-border">
+            <th class="col-header">Teacher:<br>{{Teacher_Tech}}</th>
+            <th class="col-header">Domain/Strand</th>
+            <th class="col-header">Trimester 1</th>
+            <th class="col-header">Trimester 2</th>
+            <th class="col-header">Trimester 3</th>
+        </tr>
+        <tr>
+            <td rowspan="3" class="reading-side-label">Technology</td>
+            <td>
+                <ul class="domain-list">
+                    <li>Digital Literacy and Computational Thinking</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{T_DigLit_T1}}</td>
+            <td class="grade-cell">{{T_DigLit_T2}}</td>
+            <td class="grade-cell">{{T_DigLit_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Digital Citizenship</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{T_DigCit_T1}}</td>
+            <td class="grade-cell">{{T_DigCit_T2}}</td>
+            <td class="grade-cell">{{T_DigCit_T3}}</td>
+        </tr>
+        <tr>
+            <td>
+                <ul class="domain-list">
+                    <li>Creative and Collaborative Technology Use</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{T_CreCol_T1}}</td>
+            <td class="grade-cell">{{T_CreCol_T2}}</td>
+            <td class="grade-cell">{{T_CreCol_T3}}</td>
+        </tr>
+    </table>
+
+    <div style="color: #FF0000; font-size: 16pt; text-align: center; margin: 15pt 0 5pt 0;">Electiva</div>
+    <table class="main-table">
+        <tr class="red-top-border">
+            <th class="col-header">Teacher:<br>{{Teacher_Electiva}}</th>
+            <th class="col-header">Domain/Strand</th>
+            <th class="col-header">Trimester 1</th>
+            <th class="col-header">Trimester 2</th>
+            <th class="col-header">Trimester 3</th>
+        </tr>
+        <tr>
+            <td rowspan="1" class="reading-side-label">Electiva</td>
+            <td>
+                <ul class="domain-list">
+                    <li>Electiva</li>
+                </ul>
+            </td>
+            <td class="grade-cell">{{Electiva_T1}}</td>
+            <td class="grade-cell">{{Electiva_T2}}</td>
+            <td class="grade-cell">{{Electiva_T3}}</td>
+        </tr>
+    </table>
+
+    <div class="life-skills-title">Life Skills</div>
+
+    <table class="life-skills-table">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Work Habits</th>
+                <th>Participation</th>
+                <th>Working in groups</th>
+                <th>Behavior and school value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="subject-col">Art</td>
+                <td>{{Art_Work}}</td>
+                <td>{{Art_Participation}}</td>
+                <td>{{Art_Group}}</td>
+                <td>{{Art_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">English</td>
+                <td>{{English_Work}}</td>
+                <td>{{English_Participation}}</td>
+                <td>{{English_Group}}</td>
+                <td>{{English_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">Español</td>
+                <td>{{Espanol_Work}}</td>
+                <td>{{Espanol_Participation}}</td>
+                <td>{{Espanol_Group}}</td>
+                <td>{{Espanol_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">Mathematics</td>
+                <td>{{Math_Work}}</td>
+                <td>{{Math_Participation}}</td>
+                <td>{{Math_Group}}</td>
+                <td>{{Math_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">Music</td>
+                <td>{{Music_Work}}</td>
+                <td>{{Music_Participation}}</td>
+                <td>{{Music_Group}}</td>
+                <td>{{Music_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">Physical Education</td>
+                <td>{{Physical_Work}}</td>
+                <td>{{Physical_Participation}}</td>
+                <td>{{Physical_Group}}</td>
+                <td>{{Physical_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">Religión, ética y valores</td>
+                <td>{{Religion_Work}}</td>
+                <td>{{Religion_Participation}}</td>
+                <td>{{Religion_Group}}</td>
+                <td>{{Religion_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">Science</td>
+                <td>{{Science_Work}}</td>
+                <td>{{Science_Participation}}</td>
+                <td>{{Science_Group}}</td>
+                <td>{{Science_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">Social Studies</td>
+                <td>{{SocialStudies_Work}}</td>
+                <td>{{SocialStudies_Participation}}</td>
+                <td>{{SocialStudies_Group}}</td>
+                <td>{{SocialStudies_Behavior}}</td>
+            </tr>
+            <tr>
+                <td class="subject-col">Technology</td>
+                <td>{{Tech_Work}}</td>
+                <td>{{Tech_Participation}}</td>
+                <td>{{Tech_Group}}</td>
+                <td>{{Tech_Behavior}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="signatures-photo-container">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1qvKBHsPou7xsnN2-ThFraJjUgBq_MG5W" class="full-width-photo">
+    </div>
+
+</body>
+</html>

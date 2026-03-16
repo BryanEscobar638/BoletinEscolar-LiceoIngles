@@ -50,7 +50,9 @@ def preparar_contexto_ms(id_est, df_notas_total, df_coments_total, trimestre):
                     if t <= trimestre and not datos_m_notas.empty:
                         fila_dom = datos_m_notas[datos_m_notas['Domain'].str.strip() == nombre_item.strip()]
                         val = fila_dom.iloc[0].get(f'Trimester{t}', '') if not fila_dom.empty else ""
-                        contexto[tag_nota] = str(val).strip() if pd.notna(val) else ""
+                        # Línea a reemplazar para que el N/A SI SALGA en Elementary/MS
+                        # Reemplaza la línea de contexto[tag_nota] por esta:
+                        contexto[tag_nota] = str(val).strip() if str(val).lower() != 'nan' else ""
                     else:
                         contexto[tag_nota] = ""
     return contexto
@@ -89,7 +91,8 @@ def preparar_contexto_hs(id_est, df_notas_total, df_coments_total, trimestre):
                 for t in range(1, 4):
                     tag_t = limpiar_tag(etiqueta_base.format(t=t))
                     val = datos_m.get(f"Trimester{t}", "") if t <= trimestre else ""
-                    contexto[tag_t] = str(val).replace('.0', '').strip() if pd.notna(val) and str(val) != "**" else ""
+                    # Línea a reemplazar para que el N/A SI SALGA en notas de HS
+                    contexto[tag_t] = str(val).replace('.0', '').strip() if pd.notna(val) and str(val).strip() != "" else ""
             elif nombre_item == "Teacher":
                 contexto[tag] = str(datos_m.get('S_Teacher', '')).strip()
             elif nombre_item in columnas_ls:
@@ -99,7 +102,8 @@ def preparar_contexto_hs(id_est, df_notas_total, df_coments_total, trimestre):
                     for c_real in f_c.columns:
                         if c_real.lower().strip() == col_target:
                             val_raw = f_c.iloc[0].get(c_real, "")
-                            val_ls = str(val_raw).strip() if pd.notna(val_raw) and str(val_raw) != "**" else ""
+                            # Línea a reemplazar para que el N/A SI SALGA en comentarios/LS de HS
+                            val_ls = str(val_raw).strip() if pd.notna(val_raw) and str(val_raw).strip() != "" else ""
                             break
                 contexto[tag] = val_ls
     return contexto
@@ -110,8 +114,12 @@ async def procesar_boletines_completos(rutaPyMS, rutaHS, trimestre):
     print("📊 [1/3] Cargando bases de datos en memoria...")
     
     # Carga única de Excels
-    df_pyms_notas = pd.read_excel(rutaPyMS, sheet_name='Tablero_notas_Oficial')
-    df_pyms_coments = pd.read_excel(rutaPyMS, sheet_name='Ls_Comments_Oficial')
+    df_pyms_notas = pd.read_excel(
+        rutaPyMS,
+        sheet_name='Tablero_notas_Oficial',
+        keep_default_na=False
+    )
+    df_pyms_coments = pd.read_excel(rutaPyMS, sheet_name='LS_Comments')
     df_hs_notas = pd.read_excel(rutaHS, sheet_name='Destination_oficial')
     df_hs_coments = pd.read_excel(rutaHS, sheet_name='Ls_Comments_Oficial_HS')
 
@@ -154,7 +162,8 @@ async def procesar_boletines_completos(rutaPyMS, rutaHS, trimestre):
                 grado_val = str(ctx.get(limpiar_tag(ESTUDIANTE["GRADO"]), "1"))[0]
                 if grado_val in ["1", "2"]: plant = "Grades1&2template.html"
                 elif grado_val in ["3", "4", "5"]: plant = "Grades3,4&5template.html"
-                elif grado_val in ["6", "7"]: plant = "Grades6&7template.html"
+                elif grado_val in ["6"]: plant = "Grades6template.html"
+                elif grado_val in ["7"]: plant = "Grades7template.html"
                 else: plant = "Grades8template.html"
             else:
                 ctx = preparar_contexto_hs(id_est, df_hs_notas, df_hs_coments, trimestre)
@@ -199,4 +208,4 @@ async def procesar_boletines_completos(rutaPyMS, rutaHS, trimestre):
     print(f"\n{'='*30}\n✨ PROCESO FINALIZADO\n⏱️ Tiempo total: {final//60:.0f}m {final%60:.0f}s\n{'='*30}")
 
 if __name__ == "__main__":
-    asyncio.run(procesar_boletines_completos("Data Domains Elementary.xlsx", "Destination HS.xlsx", 1))
+    asyncio.run(procesar_boletines_completos("Data Domains Elementary.xlsx", "Destination HS.xlsx", 2))

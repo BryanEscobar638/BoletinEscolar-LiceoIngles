@@ -50,7 +50,7 @@ MATERIAS_MAPEO = {
         "Operations & Algebraic Thinking": "{{M_Ope_T{t}}}",
         "Number & Operations in Base 10": "{{M_Num_T{t}}}",
         "Measurement & Data": "{{M_Mea_T{t}}}",
-        "Geometry": "{{M_Geo_T1{t}}}",
+        "Geometry": "{{M_Geo_T{t}}}",
         "Ratios and proportional relationships": "{{M_Rat_T{t}}}",
         "The number system": "{{M_Numsys_T{t}}}",
         "Expressions and equations": "{{M_Exp_T{t}}}",
@@ -83,7 +83,7 @@ MATERIAS_MAPEO = {
         "Teacher": "{{Teacher_Foundational}}",
         "Foundational Skills": "{{F_Fou_T{t}}}",
         "Speaking": "{{F_Spe_T{t}}}",
-        "Listening": "{{F_Lis_T1{t}}}",
+        "Listening": "{{F_Lis_T{t}}}",
         "Strength": "{{Foundational_Strength}}",
         "Growth": "{{Foundational_Growth}}",
         "Goal": "{{Foundational_Goal}}",
@@ -94,8 +94,10 @@ MATERIAS_MAPEO = {
     },
     "Español": {
         "Teacher": "{{Teacher_Espanol}}",
-        "Comprensión e interpretación textual": "{{E_Com_T{t}}}",
-        "Producción Textual": "{{E_Pro_T{t}}}",
+        "Comprensión e interpretación textual": "{{E_Com_T_MS{t}}}",
+        "Comprensión e Interpretación textual": "{{E_Com_T{t}}}",
+        "Producción Textual": "{{E_Pro_T_MS{t}}}",
+        "Producción textual": "{{E_Pro_T{t}}}",
         "Expresión oral": "{{E_Exp_T{t}}}",
         "Literatura": "{{E_Lit_T{t}}}",
         "Medios y simbolos de comunicación": "{{E_Med_T{t}}}",
@@ -122,7 +124,7 @@ MATERIAS_MAPEO = {
         "Teacher": "{{Teacher_Music}}",
         "Musical concepts": "{{M_Mus_T{t}}}",
         "Creative expression": "{{M_Cre_T{t}}}",
-        "Creating and Perfoming": "{{M_CrePer_T{t}}}",
+        "Creating and Performing": "{{M_CrePer_T{t}}}",
         "Connecting and Understanding Contexts": "{{M_Con_T{t}}}",
         "Work Habits": "{{Music_Work}}",
         "Participation": "{{Music_Participation}}",
@@ -185,7 +187,7 @@ MATERIAS_MAPEO = {
     },
     "Electiva_Ms": {
         "Teacher": "{{Teacher_Electiva}}",
-        "Electiva": "{{Electiva_T{t}}}",
+        "Electiva_Ms": "{{Electiva_T{t}}}",
     }
 }
 
