@@ -93,13 +93,6 @@ def preparar_contexto_hs(id_est, df_notas_total, df_coments_total, trimestre):
                     val = datos_m.get(f"Trimester{t}", "") if t <= trimestre else ""
                     # Línea a reemplazar para que el N/A SI SALGA en notas de HS
                     contexto[tag_t] = str(val).replace('.0', '').strip() if pd.notna(val) and str(val).strip() != "" else ""
-            elif nombre_item == "final":
-                year_grade = datos_m.get("Year Grade", "")
-                contexto[tag] = (
-                    str(year_grade).replace('.0', '').strip()
-                    if pd.notna(year_grade) and str(year_grade).strip() != ""
-                    else ""
-                )
             elif nombre_item == "Teacher":
                 contexto[tag] = str(datos_m.get('S_Teacher', '')).strip()
             elif nombre_item in columnas_ls:
