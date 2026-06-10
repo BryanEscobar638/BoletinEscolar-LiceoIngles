@@ -199,7 +199,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Art_Work}}",
         "Participation": "{{Art_Participation}}",
         "Working in groups": "{{Art_Group}}",
-        "Behavior and school values": "{{Art_Behavior}}"
+        "Behavior and school values": "{{Art_Behavior}}",
+        "final": "{{Art_FINAL}}"
     },
     "P.E": {
         "Teacher": "{{Teacher_PE}}",
@@ -208,7 +209,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{PE_Work}}",
         "Participation": "{{PE_Participation}}",
         "Working in groups": "{{PE_Group}}",
-        "Behavior and school values": "{{PE_Behavior}}"
+        "Behavior and school values": "{{PE_Behavior}}",
+        "final": "{{PE_FINAL}}"
     },
     "Technology": {
         "Teacher": "{{Teacher_Tech}}",
@@ -216,7 +218,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Tech_Work}}",
         "Participation": "{{Tech_Participation}}",
         "Working in groups": "{{Tech_Group}}",
-        "Behavior and school values": "{{Tech_Behavior}}"
+        "Behavior and school values": "{{Tech_Behavior}}",
+        "final": "{{Tech_FINAL}}"
     },
     "Biology": {
         "Teacher": "{{Teacher_Biology}}",
@@ -225,7 +228,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Biology_Work}}",
         "Participation": "{{Biology_Participation}}",
         "Working in groups": "{{Biology_Group}}",
-        "Behavior and school values": "{{Biology_Behavior}}"
+        "Behavior and school values": "{{Biology_Behavior}}",
+        "final": "{{Biology_FINAL}}"
     },
     "SS - History of EEUU": {
         "Teacher": "{{Teacher_History}}",
@@ -234,7 +238,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{History_Work}}",
         "Participation": "{{History_Participation}}",
         "Working in groups": "{{History_Group}}",
-        "Behavior and school values": "{{History_Behavior}}"
+        "Behavior and school values": "{{History_Behavior}}",
+        "final": "{{History_FINAL}}"
     },
     "History of Colombia": {
         "Teacher": "{{Teacher_HOC}}",
@@ -243,7 +248,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{HOC_Work}}",
         "Participation": "{{HOC_Participation}}",
         "Working in groups": "{{HOC_Group}}",
-        "Behavior and school values": "{{HOC_Behavior}}"
+        "Behavior and school values": "{{HOC_Behavior}}",
+        "final": "{{HOC_FINAL}}"
     },
     "SS - History: 20th century": {
         "Teacher": "{{Teacher_History}}",
@@ -252,7 +258,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{History_Work}}",
         "Participation": "{{History_Participation}}",
         "Working in groups": "{{History_Group}}",
-        "Behavior and school values": "{{History_Behavior}}"
+        "Behavior and school values": "{{History_Behavior}}",
+        "final": "{{History_FINAL}}"
     },
     "SS - History: Modern Times": {
         "Teacher": "{{Teacher_History}}",
@@ -261,7 +268,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{History_Work}}",
         "Participation": "{{History_Participation}}",
         "Working in groups": "{{History_Group}}",
-        "Behavior and school values": "{{History_Behavior}}"
+        "Behavior and school values": "{{History_Behavior}}",
+        "final": "{{History_FINAL}}"
     },
     "English": {
         "Teacher": "{{Teacher_English}}",
@@ -270,7 +278,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{English_Work}}",
         "Participation": "{{English_Participation}}",
         "Working in groups": "{{English_Group}}",
-        "Behavior and school values": "{{English_Behavior}}"
+        "Behavior and school values": "{{English_Behavior}}",
+        "final": "{{English_FINAL}}"
     },
     "Español": {
         "Teacher": "{{Teacher_Espanol}}",
@@ -279,7 +288,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Espanol_Work}}",
         "Participation": "{{Espanol_Participation}}",
         "Working in groups": "{{Espanol_Group}}",
-        "Behavior and school values": "{{Espanol_Behavior}}"
+        "Behavior and school values": "{{Espanol_Behavior}}",
+        "final": "{{Espanol_FINAL}}"
     },
     "Philosophy": {
         "Teacher": "{{Teacher_Philosophy}}",
@@ -288,7 +298,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Philosophy_Work}}",
         "Participation": "{{Philosophy_Participation}}",
         "Working in groups": "{{Philosophy_Group}}",
-        "Behavior and school values": "{{Philosophy_Behavior}}"
+        "Behavior and school values": "{{Philosophy_Behavior}}",
+        "final": "{{Philosophy_FINAL}}"
     },
     "Filosofía": {
         "Teacher": "{{Teacher_Philosophy}}",
@@ -297,7 +308,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Philosophy_Work}}",
         "Participation": "{{Philosophy_Participation}}",
         "Working in groups": "{{Philosophy_Group}}",
-        "Behavior and school values": "{{Philosophy_Behavior}}"
+        "Behavior and school values": "{{Philosophy_Behavior}}",
+        "final": "{{Philosophy_FINAL}}"
     },
     "Ética y Valores": {
         "Teacher": "{{Teacher_EYV}}",
@@ -306,7 +318,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{EYV_Work}}",
         "Participation": "{{EYV_Participation}}",
         "Working in groups": "{{EYV_Group}}",
-        "Behavior and school values": "{{EYV_Behavior}}"
+        "Behavior and school values": "{{EYV_Behavior}}",
+        "final": "{{EYV_FINAL}}"
     },
     "Algebra I / Geome-Stats": {
         "Teacher": "{{Teacher_ALG}}",
@@ -314,7 +327,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{ALG_Work}}",
         "Participation": "{{ALG_Participation}}",
         "Working in groups": "{{ALG_Group}}",
-        "Behavior and school values": "{{ALG_Behavior}}"
+        "Behavior and school values": "{{ALG_Behavior}}",
+        "final": "{{ALG_FINAL}}"
     },
     "Algebra II / Geome-Stats": {
         "Teacher": "{{Teacher_ALG}}",
@@ -322,7 +336,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{ALG_Work}}",
         "Participation": "{{ALG_Participation}}",
         "Working in groups": "{{ALG_Group}}",
-        "Behavior and school values": "{{ALG_Behavior}}"
+        "Behavior and school values": "{{ALG_Behavior}}",
+        "final": "{{ALG_FINAL}}"
     },
     "AP E-Lang Composition": {
         "Teacher": "{{Teacher_APE}}",
@@ -331,7 +346,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{APE_Work}}",
         "Participation": "{{APE_Participation}}",
         "Working in groups": "{{APE_Group}}",
-        "Behavior and school values": "{{APE_Behavior}}"
+        "Behavior and school values": "{{APE_Behavior}}",
+        "final": "{{APE_FINAL}}"
     },
     "AP Microeconomics": {
         "Teacher": "{{Teacher_Microeconomics}}",
@@ -340,7 +356,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Microeconomics_Work}}",
         "Participation": "{{Microeconomics_Participation}}",
         "Working in groups": "{{Microeconomics_Group}}",
-        "Behavior and school values": "{{Microeconomics_Behavior}}"
+        "Behavior and school values": "{{Microeconomics_Behavior}}",
+        "final": "{{Microeconomics_FINAL}}"
     },
     "AP Macroeconomics": {
         "Teacher": "{{Teacher_Macroeconomics}}",
@@ -349,7 +366,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Macroeconomics_Work}}",
         "Participation": "{{Macroeconomics_Participation}}",
         "Working in groups": "{{Macroeconomics_Group}}",
-        "Behavior and school values": "{{Macroeconomics_Behavior}}"
+        "Behavior and school values": "{{Macroeconomics_Behavior}}",
+        "final": "{{Macroeconomics_FINAL}}"
     },
     "AP Capstone Seminar": {
         "Teacher": "{{Teacher_Capstone}}",
@@ -358,7 +376,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Capstone_Work}}",
         "Participation": "{{Capstone_Participation}}",
         "Working in groups": "{{Capstone_Group}}",
-        "Behavior and school values": "{{Capstone_Behavior}}"
+        "Behavior and school values": "{{Capstone_Behavior}}",
+        "final": "{{Capstone_FINAL}}"
     },
     "AP Capstone Research": {
         "Teacher": "{{Teacher_Capstone}}",
@@ -367,7 +386,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Capstone_Work}}",
         "Participation": "{{Capstone_Participation}}",
         "Working in groups": "{{Capstone_Group}}",
-        "Behavior and school values": "{{Capstone_Behavior}}"
+        "Behavior and school values": "{{Capstone_Behavior}}",
+        "final": "{{Capstone_FINAL}}"
     },
     "AP E-Literat Composition": {
         "Teacher": "{{Teacher_Literature}}",
@@ -376,7 +396,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Literature_Work}}",
         "Participation": "{{Literature_Participation}}",
         "Working in groups": "{{Literature_Group}}",
-        "Behavior and school values": "{{Literature_Behavior}}"
+        "Behavior and school values": "{{Literature_Behavior}}",
+        "final": "{{Literature_FINAL}}"
     },
     "AP Human Geography": {
         "Teacher": "{{Teacher_Human}}",
@@ -385,7 +406,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Human_Work}}",
         "Participation": "{{Human_Participation}}",
         "Working in groups": "{{Human_Group}}",
-        "Behavior and school values": "{{Human_Behavior}}"
+        "Behavior and school values": "{{Human_Behavior}}",
+        "final": "{{Human_FINAL}}"
     },
     "Test. Preparation": {
         "Teacher": "{{Teacher_Test}}",
@@ -394,7 +416,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Test_Work}}",
         "Participation": "{{Test_Participation}}",
         "Working in groups": "{{Test_Group}}",
-        "Behavior and school values": "{{Test_Behavior}}"
+        "Behavior and school values": "{{Test_Behavior}}",
+        "final": "{{Test_FINAL}}"
     },
     "Trigo/Geo/Stats": {
         "Teacher": "{{Teacher_TGS}}",
@@ -403,7 +426,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{TGS_Work}}",
         "Participation": "{{TGS_Participation}}",
         "Working in groups": "{{TGS_Group}}",
-        "Behavior and school values": "{{TGS_Behavior}}"
+        "Behavior and school values": "{{TGS_Behavior}}",
+        "final": "{{TGS_FINAL}}"
     },
     "Calculus/Geo/Stats": {
         "Teacher": "{{Teacher_CGS}}",
@@ -412,7 +436,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{CGS_Work}}",
         "Participation": "{{CGS_Participation}}",
         "Working in groups": "{{CGS_Group}}",
-        "Behavior and school values": "{{CGS_Behavior}}"
+        "Behavior and school values": "{{CGS_Behavior}}",
+        "final": "{{CGS_FINAL}}"
     },
     "Physics": {
         "Teacher": "{{Teacher_Physics}}",
@@ -421,7 +446,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Physics_Work}}",
         "Participation": "{{Physics_Participation}}",
         "Working in groups": "{{Physics_Group}}",
-        "Behavior and school values": "{{Physics_Behavior}}"
+        "Behavior and school values": "{{Physics_Behavior}}",
+        "final": "{{Physics_FINAL}}"
     },
     "Chemistry": {
         "Teacher": "{{Teacher_Chemistry}}",
@@ -430,7 +456,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Chemistry_Work}}",
         "Participation": "{{Chemistry_Participation}}",
         "Working in groups": "{{Chemistry_Group}}",
-        "Behavior and school values": "{{Chemistry_Behavior}}"
+        "Behavior and school values": "{{Chemistry_Behavior}}",
+        "final": "{{Chemistry_FINAL}}"
     },
     "AP Computer Principles": {
         "Teacher": "{{Teacher_Computer}}",
@@ -439,7 +466,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Computer_Work}}",
         "Participation": "{{Computer_Participation}}",
         "Working in groups": "{{Computer_Group}}",
-        "Behavior and school values": "{{Computer_Behavior}}"
+        "Behavior and school values": "{{Computer_Behavior}}",
+        "final": "{{Computer_FINAL}}"
     },
     "AP Computer Advanced": {
         "Teacher": "{{Teacher_Computer}}",
@@ -448,7 +476,8 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Computer_Work}}",
         "Participation": "{{Computer_Participation}}",
         "Working in groups": "{{Computer_Group}}",
-        "Behavior and school values": "{{Computer_Behavior}}"
+        "Behavior and school values": "{{Computer_Behavior}}",
+        "final": "{{Computer_FINAL}}"
     },
     "Ciencias Políticas": {
         "Teacher": "{{Teacher_Politicas}}",
@@ -457,6 +486,7 @@ MATERIAS_MAPEO_HS = {
         "Work Habits": "{{Politicas_Work}}",
         "Participation": "{{Politicas_Participation}}",
         "Working in groups": "{{Politicas_Group}}",
-        "Behavior and school values": "{{Politicas_Behavior}}"
+        "Behavior and school values": "{{Politicas_Behavior}}",
+        "final": "{{Politicas_FINAL}}"
     },
 }
