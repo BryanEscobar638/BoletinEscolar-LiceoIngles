@@ -208,4 +208,4 @@ async def procesar_boletines_completos(rutaPyMS, rutaHS, trimestre):
     print(f"\n{'='*30}\n✨ PROCESO FINALIZADO\n⏱️ Tiempo total: {final//60:.0f}m {final%60:.0f}s\n{'='*30}")
 
 if __name__ == "__main__":
-    asyncio.run(procesar_boletines_completos("Data Domains Elementary.xlsx", "Destination HS.xlsx", 2))
+    asyncio.run(procesar_boletines_completos("Data Domains Elementary.xlsx", "Destination HS.xlsx", 3))
